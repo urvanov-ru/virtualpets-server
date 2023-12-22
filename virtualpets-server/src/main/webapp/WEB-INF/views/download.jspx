@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<custom:defaultLayout xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:custom="urn:jsptagdir:/WEB-INF/tags">
+<div id="main" 
+    version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output omit-xml-declaration="yes" />
+    <spring:message code="download_message" var="download_message_var" />
+    <spring:message code="download_windows" var="download_windows_var" />
+    <spring:message code="download_other" var="download_other_var" />
+    <spring:url value="/resources/client/virtualpetsdownloader_1.2.exe" var="download_windows_url" />
+    <spring:url value="/resources/client/virtualpetslauncher_1.2.zip" var="download_other_url" />
+    <p>${download_message_var}</p>
+    <p><a href="${download_windows_url}">${download_windows_var}</a></p>
+    <p><a href="${download_other_url}">${download_other_var}</a></p>
+
+</div>
+</custom:defaultLayout>

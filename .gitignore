@@ -1,0 +1,7 @@
+/data
+.project
+dependency-reduced-pom.xml
+*.log
+.settings
+.factorypath
+*.log.*
