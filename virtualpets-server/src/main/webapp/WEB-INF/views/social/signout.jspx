@@ -5,6 +5,7 @@
     <jsp:output doctype-root-element="HTML"
         doctype-system="about:legacy-compat" />
     <jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:directive.page session="false" />
     <jsp:output omit-xml-declaration="yes" />
     <jsp:directive.page pageEncoding="UTF-8" />
     <H1>Sign out page</H1>
