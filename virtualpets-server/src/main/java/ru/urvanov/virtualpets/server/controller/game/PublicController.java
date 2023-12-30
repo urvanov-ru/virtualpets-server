@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ru.urvanov.virtualpets.server.remoting.PublicRemoting;
+import ru.urvanov.virtualpets.server.service.PublicServiceImpl;
 import ru.urvanov.virtualpets.shared.domain.GetServersArg;
 import ru.urvanov.virtualpets.shared.domain.LoginResult;
 import ru.urvanov.virtualpets.shared.domain.RecoverPasswordArg;
@@ -21,7 +21,6 @@ import ru.urvanov.virtualpets.shared.domain.ServerInfo;
 import ru.urvanov.virtualpets.shared.domain.ServerTechnicalInfo;
 import ru.urvanov.virtualpets.shared.exception.DaoException;
 import ru.urvanov.virtualpets.shared.exception.ServiceException;
-import ru.urvanov.virtualpets.shared.service.PublicService;
 
 /**
  * @author fedya
@@ -32,7 +31,7 @@ import ru.urvanov.virtualpets.shared.service.PublicService;
 public class PublicController {
 
     @Autowired
-    public PublicRemoting publicRemoting;
+    public PublicServiceImpl publicRemoting;
     
 
     @RequestMapping(method = RequestMethod.GET, value="servers")

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ru.urvanov.virtualpets.server.remoting;
+package ru.urvanov.virtualpets.server.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,6 +20,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import ru.urvanov.virtualpets.server.dao.AchievementDao;
+import ru.urvanov.virtualpets.server.dao.BookDao;
+import ru.urvanov.virtualpets.server.dao.BuildingMaterialDao;
+import ru.urvanov.virtualpets.server.dao.ClothDao;
+import ru.urvanov.virtualpets.server.dao.DrinkDao;
+import ru.urvanov.virtualpets.server.dao.FoodDao;
+import ru.urvanov.virtualpets.server.dao.LevelDao;
+import ru.urvanov.virtualpets.server.dao.PetDao;
+import ru.urvanov.virtualpets.server.dao.PetFoodDao;
+import ru.urvanov.virtualpets.server.dao.RoomDao;
+import ru.urvanov.virtualpets.server.dao.UserDao;
 import ru.urvanov.virtualpets.server.domain.Achievement;
 import ru.urvanov.virtualpets.server.domain.AchievementCode;
 import ru.urvanov.virtualpets.server.domain.Book;
@@ -44,17 +55,6 @@ import ru.urvanov.virtualpets.server.domain.Refrigerator;
 import ru.urvanov.virtualpets.server.domain.Room;
 import ru.urvanov.virtualpets.server.domain.SelectedPet;
 import ru.urvanov.virtualpets.server.domain.User;
-import ru.urvanov.virtualpets.server.service.AchievementService;
-import ru.urvanov.virtualpets.server.service.BookService;
-import ru.urvanov.virtualpets.server.service.BuildingMaterialService;
-import ru.urvanov.virtualpets.server.service.ClothService;
-import ru.urvanov.virtualpets.server.service.DrinkService;
-import ru.urvanov.virtualpets.server.service.FoodService;
-import ru.urvanov.virtualpets.server.service.LevelService;
-import ru.urvanov.virtualpets.server.service.PetFoodService;
-import ru.urvanov.virtualpets.server.service.PetService;
-import ru.urvanov.virtualpets.server.service.RoomService;
-import ru.urvanov.virtualpets.server.service.UserService;
 import ru.urvanov.virtualpets.shared.domain.HiddenObjectsGameType;
 import ru.urvanov.virtualpets.shared.domain.LevelInfo;
 import ru.urvanov.virtualpets.shared.exception.DaoException;
@@ -66,7 +66,7 @@ import ru.urvanov.virtualpets.shared.service.HiddenObjectsService;
  * 
  */
 @Service(value = "hiddenObjectsRemoting")
-public class HiddenObjectsRemoting implements HiddenObjectsService {
+public class HiddenObjectsServiceImpl implements HiddenObjectsService {
     private static final String HIDDEN_OBJECTS_GAME_ID = "hiddenObjectsGameId";
 
     private static final String HIDDEN_OBJECTS_GAME_STARTED = "hiddenObjectsGameStarted";
@@ -83,37 +83,40 @@ public class HiddenObjectsRemoting implements HiddenObjectsService {
     private ConversionService conversionService;
 
     @Autowired
-    private PetFoodService petFoodService;
+    private PetFoodDao petFoodDao;
 
     @Autowired
-    private FoodService foodService;
+    private FoodDao foodDao;
 
+    @Autowired
+    private PetDao petDao;
+    
     @Autowired
     private PetService petService;
 
     @Autowired
-    private DrinkService drinkService;
+    private DrinkDao drinkDao;
 
     @Autowired
-    private ClothService clothService;
+    private ClothDao clothDao;
 
     @Autowired
-    private BookService bookService;
+    private BookDao bookDao;
 
     @Autowired
-    private UserService userService;
+    private UserDao userDao;
 
     @Autowired
-    private RoomService roomService;
+    private RoomDao roomDao;
 
     @Autowired
-    private LevelService levelService;
+    private LevelDao levelDao;
 
     @Autowired
-    private BuildingMaterialService buildingMaterialService;
+    private BuildingMaterialDao buildingMaterialDao;
 
     @Autowired
-    private AchievementService achievementService;
+    private AchievementDao achievementDao;
 
     private Map<Integer, HiddenObjectsGame> games = new HashMap<Integer, HiddenObjectsGame>();
     private Map<Integer, HiddenObjectsGame> finishedGames = new HashMap<Integer, HiddenObjectsGame>();
@@ -128,13 +131,13 @@ public class HiddenObjectsRemoting implements HiddenObjectsService {
         Authentication authentication = (Authentication) securityContext
                 .getAuthentication();
         User user = (User) authentication.getPrincipal();
-        user = userService.findById(user.getId());
+        user = userDao.findById(user.getId());
         ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder
                 .getRequestAttributes();
         SelectedPet selectedPet = (SelectedPet) sra.getAttribute("pet",
                 ServletRequestAttributes.SCOPE_SESSION);
         
-        Pet pet = petService.findById(selectedPet.getId());
+        Pet pet = petDao.findById(selectedPet.getId());
 
         HiddenObjectsGame foundGame = null;
         HiddenObjectsPlayer player = new HiddenObjectsPlayer();
@@ -232,7 +235,7 @@ public class HiddenObjectsRemoting implements HiddenObjectsService {
                     .getRequestAttributes();
             SelectedPet selectedPet = (SelectedPet) sra.getAttribute("pet",
                     ServletRequestAttributes.SCOPE_SESSION);
-            Pet pet = petService.findById(selectedPet.getId());
+            Pet pet = petDao.findById(selectedPet.getId());
             HiddenObjectsPlayer player = foundGame.getPlayer(pet.getUser()
                     .getId());
             ru.urvanov.virtualpets.shared.domain.HiddenObjectsReward resultReward = new ru.urvanov.virtualpets.shared.domain.HiddenObjectsReward();
@@ -416,7 +419,7 @@ public class HiddenObjectsRemoting implements HiddenObjectsService {
                     if (game.getObjectsForSearchCount() == 0) {
                         Random random = new Random();
                         random.nextInt(MAX_OBJECTS_FOR_SEARCH);
-                        Room room = roomService.findByPetId(player.getPetId());
+                        Room room = roomDao.findByPetId(player.getPetId());
                         Refrigerator refrigerator = room.getRefrigerator();
                         MachineWithDrinks machineWithDrinks = room
                                 .getMachineWithDrinks();
@@ -426,7 +429,7 @@ public class HiddenObjectsRemoting implements HiddenObjectsService {
                                     .nextInt(refrigerator.getMaxFoodType() + 1)];
                         }
                         if (random.nextInt(100) < 10) {
-                            clothId = random.nextInt(clothService.getCount()) + 1;
+                            clothId = random.nextInt(clothDao.getCount()) + 1;
                         }
                         if (random.nextInt(100) < 10) {
                             int buildingMaterialRandom = random.nextInt(100);
@@ -464,17 +467,17 @@ public class HiddenObjectsRemoting implements HiddenObjectsService {
                 reward.setBookId(bookId);
                 player.setReward(reward);
 
-                PetFood food = petFoodService.findByPetIdAndFoodType(
+                PetFood food = petFoodDao.findByPetIdAndFoodType(
                         player.getPetId(), foodType);
                 if (food == null) {
                     food = new PetFood();
-                    food.setPet(petService.getReference(player.getPetId()));
-                    food.setFood(foodService.findByCode(foodType));
+                    food.setPet(petDao.getReference(player.getPetId()));
+                    food.setFood(foodDao.findByCode(foodType));
                     food.setFoodCount(0);
                 }
                 food.setFoodCount(food.getFoodCount() + 1);
-                petFoodService.save(food);
-                Pet fullPet = petService.findFullById(player.getPetId());
+                petFoodDao.save(food);
+                Pet fullPet = petDao.findFullById(player.getPetId());
                 fullPet.setMood(100);
                 Set<Cloth> cloths = fullPet.getCloths();
                 boolean clothFound = false;
@@ -484,13 +487,13 @@ public class HiddenObjectsRemoting implements HiddenObjectsService {
                     }
                 }
                 if ((!clothFound) && (clothId != null)) {
-                    cloths.add(clothService.findById(clothId));
+                    cloths.add(clothDao.findById(clothId));
                     reward.setClothId(clothId);
                 }
                 if (buildingMaterialType != null) {
                     Map<BuildingMaterial, PetBuildingMaterial> mapBuildingMaterials = fullPet
                             .getBuildingMaterials();
-                    BuildingMaterial buildingMaterial = buildingMaterialService
+                    BuildingMaterial buildingMaterial = buildingMaterialDao
                             .findByCode(buildingMaterialType);
                     PetBuildingMaterial petBuildingMaterial = mapBuildingMaterials
                             .get(buildingMaterial);
@@ -509,7 +512,7 @@ public class HiddenObjectsRemoting implements HiddenObjectsService {
                 }
                 if (drinkType != null) {
                     Map<Drink, PetDrink> mapDrinks = fullPet.getDrinks();
-                    Drink drink = drinkService.findByCode(drinkType);
+                    Drink drink = drinkDao.findByCode(drinkType);
                     PetDrink petDrink = mapDrinks.get(drink);
                     if (petDrink == null) {
                         petDrink = new PetDrink();
@@ -529,18 +532,18 @@ public class HiddenObjectsRemoting implements HiddenObjectsService {
                 }
                 if (bookId != null && !bookFound) {
                     Set<Book> books = fullPet.getBooks();
-                    books.add(bookService.findById(bookId));
+                    books.add(bookDao.findById(bookId));
                     reward.setBookId(bookId);
                 }
 
                 if (fullPet.getHiddenObjectsGameCount() < Integer.MAX_VALUE)
                     fullPet.setHiddenObjectsGameCount(fullPet
                             .getHiddenObjectsGameCount() + 1);
-                Achievement achievementHiddenObjectsGame1 = achievementService
+                Achievement achievementHiddenObjectsGame1 = achievementDao
                         .findByCode(AchievementCode.HIDDEN_OBJECTS_GAME_1);
-                Achievement achievementHiddenObjectsGame10 = achievementService
+                Achievement achievementHiddenObjectsGame10 = achievementDao
                         .findByCode(AchievementCode.HIDDEN_OBJECTS_GAME_10);
-                Achievement achievementHiddenObjectsGame100 = achievementService
+                Achievement achievementHiddenObjectsGame100 = achievementDao
                         .findByCode(AchievementCode.HIDDEN_OBJECTS_GAME_100);
                 if (fullPet.getHiddenObjectsGameCount().equals(
                         Integer.valueOf(1)))
@@ -563,7 +566,7 @@ public class HiddenObjectsRemoting implements HiddenObjectsService {
                 levelInfo.setExperience(fullPet.getExperience());
                 levelInfo.setLevel(fullPet.getLevel().getId());
                 levelInfo.setMinExperience(fullPet.getLevel().getExperience());
-                Level nextLevel = levelService.findById(fullPet.getLevel()
+                Level nextLevel = levelDao.findById(fullPet.getLevel()
                         .getId() + 1);
                 if (nextLevel != null) {
                     levelInfo.setMaxExperience(nextLevel.getExperience());
@@ -579,7 +582,7 @@ public class HiddenObjectsRemoting implements HiddenObjectsService {
                                 new ru.urvanov.virtualpets.server.domain.AchievementCode[0]);
 
                 reward.setAchievements(achievements);
-                petService.save(fullPet);
+                petDao.save(fullPet);
             }
         }
     }
@@ -688,79 +691,134 @@ public class HiddenObjectsRemoting implements HiddenObjectsService {
         return getResult(game);
     }
 
-    /**
-     * @return the petFoodService
-     */
-    public PetFoodService getPetFoodService() {
-        return petFoodService;
+    public PetFoodDao getPetFoodDao() {
+        return petFoodDao;
     }
 
-    /**
-     * @param petFoodService
-     *            the petFoodService to set
-     */
-    public void setPetFoodService(PetFoodService petFoodService) {
-        this.petFoodService = petFoodService;
+    public void setPetFoodDao(PetFoodDao petFoodDao) {
+        this.petFoodDao = petFoodDao;
     }
 
-    /**
-     * @return the foodService
-     */
-    public FoodService getFoodService() {
-        return foodService;
+    public FoodDao getFoodDao() {
+        return foodDao;
     }
 
-    /**
-     * @param foodService
-     *            the foodService to set
-     */
-    public void setFoodService(FoodService foodService) {
-        this.foodService = foodService;
+    public void setFoodDao(FoodDao foodDao) {
+        this.foodDao = foodDao;
     }
 
-    /**
-     * @return the petService
-     */
+    public PetDao getPetDao() {
+        return petDao;
+    }
+
+    public void setPetDao(PetDao petDao) {
+        this.petDao = petDao;
+    }
+
     public PetService getPetService() {
         return petService;
     }
 
-    /**
-     * @param petService
-     *            the petService to set
-     */
     public void setPetService(PetService petService) {
         this.petService = petService;
     }
 
-    /**
-     * @return the clothService
-     */
-    public ClothService getClothService() {
-        return clothService;
+    public DrinkDao getDrinkDao() {
+        return drinkDao;
     }
 
-    /**
-     * @param clothService
-     *            the clothService to set
-     */
-    public void setClothService(ClothService clothService) {
-        this.clothService = clothService;
+    public void setDrinkDao(DrinkDao drinkDao) {
+        this.drinkDao = drinkDao;
     }
 
-    /**
-     * @return the userService
-     */
-    public UserService getUserService() {
-        return userService;
+    public ClothDao getClothDao() {
+        return clothDao;
     }
 
-    /**
-     * @param userService
-     *            the userService to set
-     */
-    public void setUserService(UserService userService) {
-        this.userService = userService;
+    public void setClothDao(ClothDao clothDao) {
+        this.clothDao = clothDao;
     }
+
+    public BookDao getBookDao() {
+        return bookDao;
+    }
+
+    public void setBookDao(BookDao bookDao) {
+        this.bookDao = bookDao;
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    public RoomDao getRoomDao() {
+        return roomDao;
+    }
+
+    public void setRoomDao(RoomDao roomDao) {
+        this.roomDao = roomDao;
+    }
+
+    public LevelDao getLevelDao() {
+        return levelDao;
+    }
+
+    public void setLevelDao(LevelDao levelDao) {
+        this.levelDao = levelDao;
+    }
+
+    public BuildingMaterialDao getBuildingMaterialDao() {
+        return buildingMaterialDao;
+    }
+
+    public void setBuildingMaterialDao(BuildingMaterialDao buildingMaterialDao) {
+        this.buildingMaterialDao = buildingMaterialDao;
+    }
+
+    public AchievementDao getAchievementDao() {
+        return achievementDao;
+    }
+
+    public void setAchievementDao(AchievementDao achievementDao) {
+        this.achievementDao = achievementDao;
+    }
+
+    public Map<Integer, HiddenObjectsGame> getGames() {
+        return games;
+    }
+
+    public void setGames(Map<Integer, HiddenObjectsGame> games) {
+        this.games = games;
+    }
+
+    public Map<Integer, HiddenObjectsGame> getFinishedGames() {
+        return finishedGames;
+    }
+
+    public void setFinishedGames(Map<Integer, HiddenObjectsGame> finishedGames) {
+        this.finishedGames = finishedGames;
+    }
+
+    public Map<HiddenObjectsGameType, Map<Integer, HiddenObjectsGame>> getNotStartedGames() {
+        return notStartedGames;
+    }
+
+    public void setNotStartedGames(
+            Map<HiddenObjectsGameType, Map<Integer, HiddenObjectsGame>> notStartedGames) {
+        this.notStartedGames = notStartedGames;
+    }
+
+    public int getLastGameId() {
+        return lastGameId;
+    }
+
+    public void setLastGameId(int lastGameId) {
+        this.lastGameId = lastGameId;
+    }
+
 
 }

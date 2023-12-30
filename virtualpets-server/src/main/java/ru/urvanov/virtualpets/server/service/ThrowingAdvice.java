@@ -1,4 +1,4 @@
-package ru.urvanov.virtualpets.server.remoting;
+package ru.urvanov.virtualpets.server.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

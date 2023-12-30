@@ -1,4 +1,4 @@
-package ru.urvanov.virtualpets.server.remoting;
+package ru.urvanov.virtualpets.server.service;
 
 import java.util.Date;
 import java.util.List;
@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import ru.urvanov.virtualpets.server.dao.AchievementDao;
+import ru.urvanov.virtualpets.server.dao.JournalEntryDao;
+import ru.urvanov.virtualpets.server.dao.LevelDao;
+import ru.urvanov.virtualpets.server.dao.PetDao;
 import ru.urvanov.virtualpets.server.domain.Achievement;
 import ru.urvanov.virtualpets.server.domain.AchievementCode;
 import ru.urvanov.virtualpets.server.domain.JournalEntry;
@@ -22,22 +26,24 @@ import ru.urvanov.virtualpets.shared.domain.GetTownInfoResult;
 import ru.urvanov.virtualpets.shared.domain.LevelInfo;
 import ru.urvanov.virtualpets.shared.exception.DaoException;
 import ru.urvanov.virtualpets.shared.exception.ServiceException;
-import ru.urvanov.virtualpets.shared.service.TownService;
 
 @Service("townRemoting")
-public class TownRemoting implements TownService {
+public class TownServiceImpl implements ru.urvanov.virtualpets.shared.service.TownService {
 
     @Autowired
     private ru.urvanov.virtualpets.server.service.PetService petService;
 
     @Autowired
-    private ru.urvanov.virtualpets.server.service.LevelService levelService;
+    private LevelDao levelDao;
 
     @Autowired
-    private ru.urvanov.virtualpets.server.service.JournalEntryService journalEntryService;
+    private JournalEntryDao journalEntryDao;
 
     @Autowired
-    private ru.urvanov.virtualpets.server.service.AchievementService achievementService;
+    private AchievementDao achievementDao;
+    
+    @Autowired
+    private PetDao petDao;
 
     @Autowired
     private ConversionService conversionService;
@@ -49,11 +55,11 @@ public class TownRemoting implements TownService {
                 .getRequestAttributes();
         SelectedPet selectedPet = (SelectedPet) sra.getAttribute("pet",
                 ServletRequestAttributes.SCOPE_SESSION);
-        Pet pet = petService.findFullById(selectedPet.getId());
+        Pet pet = petDao.findFullById(selectedPet.getId());
 
         Map<JournalEntry, PetJournalEntry> mapJournalEntries = pet
                 .getJournalEntries();
-        JournalEntry playHiddenObjectGames = journalEntryService
+        JournalEntry playHiddenObjectGames = journalEntryDao
                 .findByCode(JournalEntryType.PLAY_HIDDEN_OBJECT_GAMES);
         if (!mapJournalEntries.containsKey(playHiddenObjectGames)) {
             PetJournalEntry petJournalEntry = new PetJournalEntry();
@@ -63,11 +69,11 @@ public class TownRemoting implements TownService {
             mapJournalEntries.put(playHiddenObjectGames, petJournalEntry);
         }
 
-        Achievement leaveTownAchievement = achievementService
+        Achievement leaveTownAchievement = achievementDao
                 .findByCode(AchievementCode.LEAVE_ROOM);
         petService.addAchievementIfNot(pet, leaveTownAchievement);
         
-        petService.addExperience(petService.findFullById(pet.getId()), 1);
+        petService.addExperience(petDao.findFullById(pet.getId()), 1);
         
         GetTownInfoResult result = new GetTownInfoResult();
 
@@ -75,7 +81,7 @@ public class TownRemoting implements TownService {
         result.setLevelInfo(levelInfo);
         levelInfo.setLevel(pet.getLevel().getId());
         levelInfo.setExperience(pet.getExperience());
-        Level nextLevelLeague = levelService
+        Level nextLevelLeague = levelDao
                 .findById(pet.getLevel().getId() + 1);
         levelInfo.setMaxExperience(nextLevelLeague == null ? Integer.MAX_VALUE
                 : nextLevelLeague.getExperience());
@@ -97,7 +103,7 @@ public class TownRemoting implements TownService {
 
         result.setNewJournalEntriesCount(petService
                 .getPetNewJournalEntriesCount(pet.getId()));
-        petService.save(pet);
+        petDao.save(pet);
         return result;
     }
 

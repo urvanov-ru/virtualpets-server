@@ -104,7 +104,7 @@
             value="ru.urvanov.virtualpets.shared.service.TownService" />
     </bean>
     
-    <bean name="remoteThrowingAdvice" class="ru.urvanov.virtualpets.server.remoting.ThrowingAdvice" />
+    <bean name="remoteThrowingAdvice" class="ru.urvanov.virtualpets.server.service.ThrowingAdvice" />
     
     <aop:config>
         <aop:aspect id="afterRemoteThrowing" ref="remoteThrowingAdvice">

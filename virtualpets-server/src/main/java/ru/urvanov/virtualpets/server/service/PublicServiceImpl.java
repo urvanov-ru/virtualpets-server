@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ru.urvanov.virtualpets.server.remoting;
+package ru.urvanov.virtualpets.server.service;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -29,8 +29,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import jakarta.xml.bind.annotation.adapters.HexBinaryAdapter;
+import ru.urvanov.virtualpets.server.dao.UserDao;
 import ru.urvanov.virtualpets.server.domain.User;
-import ru.urvanov.virtualpets.server.service.UserService;
 import ru.urvanov.virtualpets.shared.domain.GetServersArg;
 import ru.urvanov.virtualpets.shared.domain.LoginResult;
 import ru.urvanov.virtualpets.shared.domain.RecoverPasswordArg;
@@ -51,10 +51,10 @@ import ru.urvanov.virtualpets.shared.service.PublicService;
  * 
  */
 @Service(value = "publicRemoting")
-public class PublicRemoting implements PublicService {
+public class PublicServiceImpl implements PublicService {
 
     @Autowired
-    private UserService userService;
+    private UserDao userDao;
 
     @Autowired
     private MailSender mailSender;
@@ -91,7 +91,7 @@ public class PublicRemoting implements PublicService {
                 throw new IncompatibleVersionException("", version,
                         clientVersion);
             }
-            User user = userService.findByLogin(arg.getLogin());
+            User user = userDao.findByLogin(arg.getLogin());
             if (user != null) {
                 throw new NameIsBusyException();
             }
@@ -119,24 +119,10 @@ public class PublicRemoting implements PublicService {
             user.setEmail(arg.getEmail());
             user.setRegistrationDate(new Date());
             user.setRole(ru.urvanov.virtualpets.server.domain.Role.USER);
-            userService.save(user);
+            userDao.save(user);
         }
     }
 
-    /**
-     * @return the userService
-     */
-    public UserService getUserService() {
-        return userService;
-    }
-
-    /**
-     * @param userService
-     *            the userService to set
-     */
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
 
     @Override
     public RecoverPasswordResult recoverPassword(RecoverPasswordArg argument)
@@ -165,10 +151,10 @@ public class PublicRemoting implements PublicService {
         String key = sb.toString();
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, -1);
-        User user = userService.findByLoginAndEmail(login, email);
+        User user = userDao.findByLoginAndEmail(login, email);
         user.setRecoverPasswordKey(key);
         user.setRecoverPasswordValid(calendar.getTime());
-        userService.save(user);
+        userDao.save(user);
 
         // Create a thread safe "copy" of the template message and customize it
         SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
@@ -227,7 +213,7 @@ public class PublicRemoting implements PublicService {
         }
         SecurityContext securityContext = SecurityContextHolder.getContext();
         String unid = arg.getUnid();
-        User user = userService.findByUnid(unid);
+        User user = userDao.findByUnid(unid);
         if (user != null) {
 
             Set<GrantedAuthority> granted = new HashSet<GrantedAuthority>();
@@ -297,6 +283,14 @@ public class PublicRemoting implements PublicService {
         } catch (Exception ex) {
             throw new ServiceException(ex);
         }
+    }
+
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 
 }

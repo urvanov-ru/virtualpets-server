@@ -19,18 +19,6 @@ import ru.urvanov.virtualpets.server.service.exception.NotEnoughPetResourcesExce
  */
 public interface PetService {
 
-    public Pet findById(Integer id);
-
-    public Pet findFullById(Integer id);
-
-    public Pet getReference(Integer id);
-
-    public void save(Pet pet);
-
-    public void delete(Integer id);
-
-    public List<Pet> findByUserId(Integer userId);
-
     public void updatePetsTask();
 
     void substractPetResources(Pet fullPet, Refrigerator refrigerator)
