@@ -24,88 +24,87 @@ import ru.urvanov.virtualpets.shared.service.RoomService;
 public class RoomController {
     
     @Autowired
-    @Qualifier("roomRemoting")
-    private RoomService roomRemoting;
+    private RoomService roomService;
     
     @GetMapping(value = "getRoomInfo")
     public GetRoomInfoResult getRoomInfo() throws DaoException, ServiceException {
-        return roomRemoting.getRoomInfo();
+        return roomService.getRoomInfo();
     }
     
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping(value = "pickJournalOnFloor")
     public void pickJournalOnfloor() throws DaoException, ServiceException {
-        roomRemoting.pickJournalOnFloor();
+        roomService.pickJournalOnFloor();
     }
     
     @PostMapping(value = "getBuildMenuCosts")
     public RoomBuildMenuCosts getBuildMenuCosts() throws DaoException, ServiceException {
-        return roomRemoting.getBuildMenuCosts();
+        return roomService.getBuildMenuCosts();
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping(value = "journalClosed")
     public void journalClosed() throws DaoException, ServiceException {
-        roomRemoting.journalClosed();
+        roomService.journalClosed();
     }
     
     @PostMapping(value = "openBoxNewbie/{index}/")
     public OpenBoxNewbieResult openBoxNewbie(@PathVariable("index") int index) throws DaoException, ServiceException {
-        return roomRemoting.openBoxNewbie(index);
+        return roomService.openBoxNewbie(index);
     }
     
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping(value = "buildMachineWithDrinks") 
     public void buildMachineWithDrinks(@RequestBody Point point) throws DaoException, ServiceException {
-        roomRemoting.buildMachineWithDrinks(point);
+        roomService.buildMachineWithDrinks(point);
     }
     
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping(value = "moveMachineWithDrinks")
     public void moveMachineWithDrinks(@RequestBody Point point) throws DaoException, ServiceException {
-        roomRemoting.moveMachineWithDrinks(point);
+        roomService.moveMachineWithDrinks(point);
     }
     
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping(value = "buildRefrigerator") 
     public void buildRefrigerator(@RequestBody Point point) throws DaoException, ServiceException {
-        roomRemoting.buildRefrigerator(point);
+        roomService.buildRefrigerator(point);
     }
     
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping(value = "moveRefrigerator")
     public void moveRefrigerator(@RequestBody Point point) throws DaoException, ServiceException {
-        roomRemoting.moveRefrigerator(point);
+        roomService.moveRefrigerator(point);
     }
     
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping(value = "buildBookcase") 
     public void buildBookcase(@RequestBody Point point) throws DaoException, ServiceException {
-        roomRemoting.buildBookcase(point);
+        roomService.buildBookcase(point);
     }
     
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping(value = "moveBookcase")
     public void moveBookcase(@RequestBody Point point) throws DaoException, ServiceException {
-        roomRemoting.moveBookcase(point);
+        roomService.moveBookcase(point);
     }
     
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping(value = "upgradeRefrigerator")
     public void upgradeRefrigerator() throws DaoException, ServiceException {
-        roomRemoting.upgradeRefrigerator();
+        roomService.upgradeRefrigerator();
     }
     
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping(value = "upgradeBookcase")
     public void upgradeBookcase() throws DaoException, ServiceException {
-        roomRemoting.upgradeBookcase();
+        roomService.upgradeBookcase();
     }
     
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping(value = "upgradeMachineWithDrinks")
     public void upgradeMachineWithDrinks() throws DaoException, ServiceException {
-        roomRemoting.upgradeMachineWithDrinks();
+        roomService.upgradeMachineWithDrinks();
     }
 
 }

@@ -13,4 +13,6 @@ public interface UserService {
 
     User findByRecoverPasswordKey(String recoverPasswordKey);
 
+    User findByLoginAndPassword(String name, String hexPasswordMd5);
+
 }

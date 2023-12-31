@@ -65,7 +65,7 @@ import ru.urvanov.virtualpets.shared.service.HiddenObjectsService;
  * @author fedya
  * 
  */
-@Service(value = "hiddenObjectsRemoting")
+@Service
 public class HiddenObjectsServiceImpl implements HiddenObjectsService {
     private static final String HIDDEN_OBJECTS_GAME_ID = "hiddenObjectsGameId";
 

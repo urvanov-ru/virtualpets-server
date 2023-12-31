@@ -15,11 +15,10 @@ import ru.urvanov.virtualpets.shared.service.TownService;
 @RequestMapping(value = "rest/v1/TownService")
 public class TownController {
     @Autowired
-    @Qualifier("townRemoting")
-    private TownService townRemoting;
+    private TownService townService;
     
     @GetMapping(value = "getTownInfo")
     public GetTownInfoResult getTownInfo() throws DaoException, ServiceException {
-        return townRemoting.getTownInfo();
+        return townService.getTownInfo();
     }
 }

@@ -29,7 +29,7 @@ import ru.urvanov.virtualpets.shared.service.ChatService;
  * @author fedya
  *
  */
-@Service("chatRemoting")
+@Service
 public class ChatServiceImpl implements ChatService {
 
     @Autowired

@@ -223,4 +223,9 @@ public class UserServiceImpl implements UserService, ru.urvanov.virtualpets.shar
         return userDao.findByRecoverPasswordKey(recoverPasswordKey);
     }
 
+    @Override
+    public User findByLoginAndPassword(String name, String hexPasswordMd5) {
+        return userDao.findByLoginAndPassword(name, hexPasswordMd5);
+    }
+
 }

@@ -31,7 +31,7 @@ import ru.urvanov.virtualpets.shared.exception.ServiceException;
 public class PublicController {
 
     @Autowired
-    public PublicServiceImpl publicRemoting;
+    public PublicServiceImpl publicService;
     
 
     @RequestMapping(method = RequestMethod.GET, value="servers")
@@ -39,30 +39,30 @@ public class PublicController {
             DaoException {
         GetServersArg arg = new GetServersArg();
         arg.setVersion(version);
-        return publicRemoting.getServers(arg);
+        return publicService.getServers(arg);
     }
 
     @RequestMapping(method=RequestMethod.POST, value="register")
     public void register(@RequestBody RegisterArgument arg) throws ServiceException {
-        publicRemoting.register(arg);
+        publicService.register(arg);
     }
 
     @RequestMapping(method = RequestMethod.POST, value="recoverPassword")
     public RecoverPasswordResult recoverPassword(RecoverPasswordArg argument)
             throws ServiceException {
-        return publicRemoting.recoverPassword(argument);
+        return publicService.recoverPassword(argument);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "recoverSession")
     public LoginResult recoverSession(RecoverSessionArg arg)
             throws ServiceException, DaoException {
-        return publicRemoting.recoverSession(arg);
+        return publicService.recoverSession(arg);
     }
 
     @RequestMapping(method = RequestMethod.GET, value="server-technical-info")
     public ServerTechnicalInfo getServerTechnicalInfo()
             throws ServiceException, DaoException {
-        return publicRemoting.getServerTechnicalInfo();
+        return publicService.getServerTechnicalInfo();
     }
 
 }

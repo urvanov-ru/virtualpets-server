@@ -25,7 +25,7 @@
                     class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
             </property>
             <property name="packagesToScan"
-                value="ru.urvanov.virtualpets.server.domain" />
+                value="ru.urvanov.virtualpets.server.dao.domain" />
             <property name="jpaProperties">
                 <props>
                     <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect
@@ -59,7 +59,7 @@
                     class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
             </property>
             <property name="packagesToScan"
-                value="ru.urvanov.virtualpets.server.domain" />
+                value="ru.urvanov.virtualpets.server.dao.domain" />
             <property name="jpaProperties">
                 <props>
                     <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>

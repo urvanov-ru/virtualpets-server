@@ -17,6 +17,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import jakarta.xml.bind.annotation.adapters.HexBinaryAdapter;
 import ru.urvanov.virtualpets.server.dao.UserDao;
 import ru.urvanov.virtualpets.server.dao.domain.User;
+import ru.urvanov.virtualpets.server.service.UserService;
 
 /**
  * @author fedya
@@ -24,14 +25,7 @@ import ru.urvanov.virtualpets.server.dao.domain.User;
  */
 public class DatabaseAuthenticationProvider implements AuthenticationProvider {
 
-    private UserDao userDao;
-
-    /**
-     * 
-     */
-    public DatabaseAuthenticationProvider() {
-        // TODO Auto-generated constructor stub
-    }
+    private UserService userService;
 
     @Override
     public Authentication authenticate(Authentication authentication)
@@ -64,7 +58,7 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
                      */
                     private static final long serialVersionUID = -6946605296392709613L;};
             }
-            user = userDao.findByLoginAndPassword(authentication.getName(),
+            user = userService.findByLoginAndPassword(authentication.getName(),
                     hexPasswordMd5);
         } catch (jakarta.persistence.NoResultException ex) {
             throw new BadCredentialsException(authentication.getName());
@@ -81,12 +75,12 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
         return true;
     }
 
-    public UserDao getUserDao() {
-        return userDao;
+    public UserService getUserService() {
+        return userService;
     }
 
-    public void setUserDao(UserDao userDao) {
-        this.userDao = userDao;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
-    
+
 }

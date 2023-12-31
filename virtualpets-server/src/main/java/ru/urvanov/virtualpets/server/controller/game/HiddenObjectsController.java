@@ -21,7 +21,6 @@ import ru.urvanov.virtualpets.shared.service.HiddenObjectsService;
 @RequestMapping(value = "rest/v1/HiddenObjectsService")
 public class HiddenObjectsController {
     @Autowired
-    @Qualifier("hiddenObjectsRemoting")
     private HiddenObjectsService hiddenObjectsService;
     
     @PostMapping("joinGame")

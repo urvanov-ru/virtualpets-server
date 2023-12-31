@@ -50,7 +50,7 @@ import ru.urvanov.virtualpets.shared.service.PublicService;
  * @author fedya
  * 
  */
-@Service(value = "publicRemoting")
+@Service
 public class PublicServiceImpl implements PublicService {
 
     @Autowired

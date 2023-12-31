@@ -72,7 +72,7 @@ import ru.urvanov.virtualpets.shared.service.RoomService;
  * @author fedya
  *
  */
-@Service(value="roomService")
+@Service
 public class RoomServiceImpl implements RoomService {
     
     private static final Logger logger = LoggerFactory.getLogger(RoomServiceImpl.class);

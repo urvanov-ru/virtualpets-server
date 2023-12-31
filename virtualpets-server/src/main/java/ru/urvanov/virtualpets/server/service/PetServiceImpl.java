@@ -79,7 +79,7 @@ import ru.urvanov.virtualpets.shared.exception.ServiceException;
  * @author fedya
  *
  */
-@Service(value="petService")
+@Service("petService")
 public class PetServiceImpl implements PetService, ru.urvanov.virtualpets.shared.service.PetService {
 
     @Autowired
@@ -679,7 +679,7 @@ public class PetServiceImpl implements PetService, ru.urvanov.virtualpets.shared
             PetInformationPageAchievement petInformationPageAchievement = new PetInformationPageAchievement();
             petInformationPageAchievement.setCode(achievement.getCode().name());
             petInformationPageAchievement.setUnlocked(fullPet.getAchievements().containsKey(achievement));
-            result.setAchievements(achievements);
+            achievements.add(petInformationPageAchievement);
         }
         return result;
     }

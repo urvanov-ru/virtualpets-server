@@ -27,7 +27,7 @@ import ru.urvanov.virtualpets.shared.domain.LevelInfo;
 import ru.urvanov.virtualpets.shared.exception.DaoException;
 import ru.urvanov.virtualpets.shared.exception.ServiceException;
 
-@Service("townRemoting")
+@Service
 public class TownServiceImpl implements ru.urvanov.virtualpets.shared.service.TownService {
 
     @Autowired
