@@ -30,7 +30,7 @@ import org.springframework.stereotype.Service;
 
 import jakarta.xml.bind.annotation.adapters.HexBinaryAdapter;
 import ru.urvanov.virtualpets.server.dao.UserDao;
-import ru.urvanov.virtualpets.server.domain.User;
+import ru.urvanov.virtualpets.server.dao.domain.User;
 import ru.urvanov.virtualpets.shared.domain.GetServersArg;
 import ru.urvanov.virtualpets.shared.domain.LoginResult;
 import ru.urvanov.virtualpets.shared.domain.RecoverPasswordArg;
@@ -118,7 +118,7 @@ public class PublicServiceImpl implements PublicService {
             user.setPassword(hexPasswordMd5);
             user.setEmail(arg.getEmail());
             user.setRegistrationDate(new Date());
-            user.setRole(ru.urvanov.virtualpets.server.domain.Role.USER);
+            user.setRole(ru.urvanov.virtualpets.server.dao.domain.Role.USER);
             userDao.save(user);
         }
     }

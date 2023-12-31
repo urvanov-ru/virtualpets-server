@@ -8,8 +8,8 @@ package ru.urvanov.virtualpets.server.social;
 //import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpServletResponse;
 //
-//import ru.urvanov.virtualpets.server.domain.Role;
-//import ru.urvanov.virtualpets.server.domain.User;
+//import ru.urvanov.virtualpets.server.dao.domain.Role;
+//import ru.urvanov.virtualpets.server.dao.domain.User;
 //import ru.urvanov.virtualpets.server.service.UserService;
 //import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 //import org.springframework.security.core.GrantedAuthority;

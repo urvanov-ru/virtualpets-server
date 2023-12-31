@@ -25,11 +25,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.urvanov.virtualpets.server.domain.JournalEntry;
-import ru.urvanov.virtualpets.server.domain.Pet;
-import ru.urvanov.virtualpets.server.domain.PetJournalEntry;
-import ru.urvanov.virtualpets.server.domain.PetJournalEntry_;
-import ru.urvanov.virtualpets.server.domain.Pet_;
+import ru.urvanov.virtualpets.server.dao.domain.JournalEntry;
+import ru.urvanov.virtualpets.server.dao.domain.Pet;
+import ru.urvanov.virtualpets.server.dao.domain.PetJournalEntry;
+import ru.urvanov.virtualpets.server.dao.domain.PetJournalEntry_;
+import ru.urvanov.virtualpets.server.dao.domain.Pet_;
 
 /**
  * @author fedya

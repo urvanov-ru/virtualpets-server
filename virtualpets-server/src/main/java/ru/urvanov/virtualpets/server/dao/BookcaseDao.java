@@ -3,7 +3,7 @@
  */
 package ru.urvanov.virtualpets.server.dao;
 
-import ru.urvanov.virtualpets.server.domain.Bookcase;
+import ru.urvanov.virtualpets.server.dao.domain.Bookcase;
 
 /**
  * @author fedya

@@ -19,10 +19,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.urvanov.virtualpets.server.domain.BuildingMaterial;
-import ru.urvanov.virtualpets.server.domain.Refrigerator;
-import ru.urvanov.virtualpets.server.domain.RefrigeratorCost;
-import ru.urvanov.virtualpets.server.domain.Refrigerator_;
+import ru.urvanov.virtualpets.server.dao.domain.BuildingMaterial;
+import ru.urvanov.virtualpets.server.dao.domain.Refrigerator;
+import ru.urvanov.virtualpets.server.dao.domain.RefrigeratorCost;
+import ru.urvanov.virtualpets.server.dao.domain.Refrigerator_;
 
 /**
  * @author fedya

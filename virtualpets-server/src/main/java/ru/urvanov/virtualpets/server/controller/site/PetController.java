@@ -1,7 +1,5 @@
 package ru.urvanov.virtualpets.server.controller.site;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ru.urvanov.virtualpets.server.domain.Achievement;
-import ru.urvanov.virtualpets.server.domain.Pet;
-import ru.urvanov.virtualpets.server.service.AchievementService;
 import ru.urvanov.virtualpets.server.service.PetService;
+import ru.urvanov.virtualpets.server.service.domain.PetDetails;
 
 @Controller
 @RequestMapping("site")
@@ -26,16 +22,11 @@ public class PetController {
     @Autowired
     private PetService petService;
 
-    @Autowired
-    private AchievementService achievementService;
-
     @RequestMapping(value = "/information/pet", method = RequestMethod.GET)
     public String petInfo(@RequestParam(value = "id") Integer id, Model model) {
         logger.info("/information/pet started.");
-        Pet fullPet = petService.findFullById(id);
-        List<Achievement> allAchievements = achievementService.findAll();
-        model.addAttribute("fullPet", fullPet);
-        model.addAttribute("allAchievements", allAchievements);
+        PetDetails pet = petService.petInformationPage(id);
+        model.addAttribute("pet", pet);
         logger.info("/information/pet finished.");
         return "information/pet";
     }

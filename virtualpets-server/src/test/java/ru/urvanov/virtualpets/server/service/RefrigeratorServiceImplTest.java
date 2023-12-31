@@ -9,7 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ru.urvanov.virtualpets.server.domain.Refrigerator;
+import ru.urvanov.virtualpets.server.dao.RefrigeratorDao;
+import ru.urvanov.virtualpets.server.dao.domain.Refrigerator;
 import ru.urvanov.virtualpets.server.test.annotation.DataSets;
 
 /**
@@ -19,19 +20,19 @@ import ru.urvanov.virtualpets.server.test.annotation.DataSets;
 public class RefrigeratorServiceImplTest extends AbstractServiceImplTest {
     
     @Autowired
-    private RefrigeratorService refrigeratorService;
+    private RefrigeratorDao refrigeratorDao;
 
     @DataSets(setUpDataSet = "/ru/urvanov/virtualpets/server/service/RefrigeratorServiceImplTest.xls")
     @Test
     public void testFind1() {
-        Refrigerator refrigerator = refrigeratorService.findById(1);
+        Refrigerator refrigerator = refrigeratorDao.findById(1);
         assertNotNull(refrigerator);
     }
     
     @DataSets(setUpDataSet = "/ru/urvanov/virtualpets/server/service/RefrigeratorServiceImplTest.xls")
     @Test
     public void testFind2() {
-        Refrigerator refrigerator = refrigeratorService.findFullById(2);
+        Refrigerator refrigerator = refrigeratorDao.findFullById(2);
         assertNotNull(refrigerator);
         assertNotNull(refrigerator.getRefrigeratorCost());
     }
@@ -39,14 +40,14 @@ public class RefrigeratorServiceImplTest extends AbstractServiceImplTest {
     @DataSets(setUpDataSet = "/ru/urvanov/virtualpets/server/service/RefrigeratorServiceImplTest.xls")
     @Test
     public void testFind3() {
-        Refrigerator refrigerator = refrigeratorService.findById(-1);
+        Refrigerator refrigerator = refrigeratorDao.findById(-1);
         assertNull(refrigerator);
     }
     
     @DataSets(setUpDataSet = "/ru/urvanov/virtualpets/server/service/RefrigeratorServiceImplTest.xls")
     @Test
     public void testFind4() {
-        Refrigerator refrigerator = refrigeratorService.findFullById(-1);
+        Refrigerator refrigerator = refrigeratorDao.findFullById(-1);
         assertNull(refrigerator);
     }
 }

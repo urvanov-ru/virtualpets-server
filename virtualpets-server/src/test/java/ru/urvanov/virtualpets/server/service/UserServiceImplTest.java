@@ -12,7 +12,8 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ru.urvanov.virtualpets.server.domain.User;
+import ru.urvanov.virtualpets.server.dao.UserDao;
+import ru.urvanov.virtualpets.server.dao.domain.User;
 import ru.urvanov.virtualpets.server.test.annotation.DataSets;
 
 /**
@@ -22,34 +23,20 @@ import ru.urvanov.virtualpets.server.test.annotation.DataSets;
 public class UserServiceImplTest extends AbstractServiceImplTest {
 
     @Autowired
-    private UserService userService;
+    private UserDao userDao;
 
     @DataSets(setUpDataSet = "/ru/urvanov/virtualpets/server/service/UserServiceImplTest.xls")
     @Test
     public void findByName() throws Exception {
-        User user = userService.findByLogin("Clarence");
+        User user = userDao.findByLogin("Clarence");
         assertNotNull(user);
     }
     
     @DataSets(setUpDataSet = "/ru/urvanov/virtualpets/server/service/UserServiceImplTest.xls")
     @Test
     public void findLastRegisteredUsers() throws Exception {
-        List<User> users = userService.findLastRegisteredUsers(0, 999999);
+        List<User> users = userDao.findLastRegisteredUsers(0, 999999);
         assertEquals(users.size(), 1);
     }
 
-    /**
-     * @return the userService
-     */
-    public UserService getUserService() {
-        return userService;
-    }
-
-    /**
-     * @param userService
-     *            the userService to set
-     */
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
 }

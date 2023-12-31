@@ -20,7 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import ru.urvanov.virtualpets.server.dao.UserDao;
-import ru.urvanov.virtualpets.server.domain.User;
+import ru.urvanov.virtualpets.server.dao.domain.User;
+import ru.urvanov.virtualpets.server.service.domain.UserProfile;
 import ru.urvanov.virtualpets.shared.domain.LoginArg;
 import ru.urvanov.virtualpets.shared.domain.LoginResult;
 import ru.urvanov.virtualpets.shared.domain.RefreshUsersOnlineArg;
@@ -31,14 +32,13 @@ import ru.urvanov.virtualpets.shared.domain.UserInformationArg;
 import ru.urvanov.virtualpets.shared.exception.DaoException;
 import ru.urvanov.virtualpets.shared.exception.IncompatibleVersionException;
 import ru.urvanov.virtualpets.shared.exception.ServiceException;
-import ru.urvanov.virtualpets.shared.service.UserService;
 
 /**
  * @author fedya
  * 
  */
 @Service("userService")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, ru.urvanov.virtualpets.shared.service.UserService {
 
     @Autowired
     private UserDao userDao;
@@ -165,7 +165,7 @@ public class UserServiceImpl implements UserService {
         if (id.equals(arg.getId())) {
             user = userDao.findById(id);
             user.setName(arg.getName());
-            user.setSex(conversionService.convert(arg.getSex(), ru.urvanov.virtualpets.server.domain.Sex.class));
+            user.setSex(conversionService.convert(arg.getSex(), ru.urvanov.virtualpets.server.dao.domain.Sex.class));
             user.setBirthdate(arg.getBirthdate());
             user.setCountry(arg.getCountry());
             user.setCity(arg.getCity());
@@ -200,6 +200,27 @@ public class UserServiceImpl implements UserService {
     public void setMessageSource(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
-    
-    
+
+    @Override
+    public UserProfile getProfile() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        User user = (User)authentication.getPrincipal();
+        UserProfile userProfile = new UserProfile();
+        userProfile.setBirthdate(user.getBirthdate());
+        userProfile.setName(user.getName());
+        userProfile.setEmail(user.getEmail());
+        return userProfile;
+    }
+
+    @Override
+    public List<User> findLastRegisteredUsers(int start, int limit) {
+        return userDao.findLastRegisteredUsers(start, limit);
+    }
+
+    @Override
+    public User findByRecoverPasswordKey(String recoverPasswordKey) {
+        return userDao.findByRecoverPasswordKey(recoverPasswordKey);
+    }
+
 }

@@ -3,8 +3,8 @@
  */
 package ru.urvanov.virtualpets.server.dao;
 
-import ru.urvanov.virtualpets.server.domain.BuildingMaterial;
-import ru.urvanov.virtualpets.server.domain.BuildingMaterialType;
+import ru.urvanov.virtualpets.server.dao.domain.BuildingMaterial;
+import ru.urvanov.virtualpets.server.dao.domain.BuildingMaterialType;
 
 /**
  * @author fedya

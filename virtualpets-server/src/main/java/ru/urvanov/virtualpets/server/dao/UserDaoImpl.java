@@ -20,8 +20,8 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.urvanov.virtualpets.server.domain.User;
-import ru.urvanov.virtualpets.server.domain.User_;
+import ru.urvanov.virtualpets.server.dao.domain.User;
+import ru.urvanov.virtualpets.server.dao.domain.User_;
 /**
  * @author fedya
  *

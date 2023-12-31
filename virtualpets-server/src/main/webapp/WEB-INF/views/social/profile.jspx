@@ -7,8 +7,8 @@
     <jsp:output omit-xml-declaration="yes" />
 
     <ul>
-        <spring:url value="/site/signout" var="facebook_signout_url" />
-        <li><a href="${facebook_signout_url}">Sign Out</a></li>
+        <spring:url value="/site/signout" var="signout_url" />
+        <li><a href="${signout_url}">Sign Out</a></li>
     </ul>
     <spring:message code="name" var="name_label_var" />
     <spring:message code="email" var="email_label_var" />
@@ -16,15 +16,15 @@
     <table>
         <tr>
             <td>${name_label_var}:</td>
-            <td>${name}</td>
+            <td>${userProfile.name}</td>
         </tr>
         <tr>
             <td>${email_label_var}:</td>
-            <td>${email}</td>
+            <td>${userProfile.email}</td>
         </tr>
         <tr>
             <td>${birthdate_label_var}:</td>
-            <td>${birthdate}</td>
+            <td>${userProfile.birthdate}</td>
         </tr>
     </table>
 </div>

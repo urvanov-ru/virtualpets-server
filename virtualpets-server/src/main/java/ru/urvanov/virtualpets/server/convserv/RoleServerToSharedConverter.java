@@ -2,11 +2,11 @@ package ru.urvanov.virtualpets.server.convserv;
 
 import org.springframework.core.convert.converter.Converter;
 
-public class RoleServerToSharedConverter implements Converter<ru.urvanov.virtualpets.server.domain.Role, ru.urvanov.virtualpets.shared.domain.Role> {
+public class RoleServerToSharedConverter implements Converter<ru.urvanov.virtualpets.server.dao.domain.Role, ru.urvanov.virtualpets.shared.domain.Role> {
 
     @Override
     public ru.urvanov.virtualpets.shared.domain.Role convert(
-            ru.urvanov.virtualpets.server.domain.Role arg0) {
+            ru.urvanov.virtualpets.server.dao.domain.Role arg0) {
         switch (arg0) {
         case USER:
             return ru.urvanov.virtualpets.shared.domain.Role.USER;

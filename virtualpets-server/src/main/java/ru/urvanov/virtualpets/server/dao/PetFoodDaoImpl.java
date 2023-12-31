@@ -15,12 +15,12 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.urvanov.virtualpets.server.domain.FoodType;
-import ru.urvanov.virtualpets.server.domain.Food_;
-import ru.urvanov.virtualpets.server.domain.Pet;
-import ru.urvanov.virtualpets.server.domain.PetFood;
-import ru.urvanov.virtualpets.server.domain.PetFood_;
-import ru.urvanov.virtualpets.server.domain.Pet_;
+import ru.urvanov.virtualpets.server.dao.domain.FoodType;
+import ru.urvanov.virtualpets.server.dao.domain.Pet;
+import ru.urvanov.virtualpets.server.dao.domain.PetFood;
+import ru.urvanov.virtualpets.server.dao.domain.Food_;
+import ru.urvanov.virtualpets.server.dao.domain.PetFood_;
+import ru.urvanov.virtualpets.server.dao.domain.Pet_;
 
 /**
  * @author fedya

@@ -2,8 +2,8 @@ package ru.urvanov.virtualpets.server.dao;
 
 import java.util.List;
 
-import ru.urvanov.virtualpets.server.domain.Achievement;
-import ru.urvanov.virtualpets.server.domain.AchievementCode;
+import ru.urvanov.virtualpets.server.dao.domain.Achievement;
+import ru.urvanov.virtualpets.server.dao.domain.AchievementCode;
 
 public interface AchievementDao {
     public Achievement findById(Integer id);

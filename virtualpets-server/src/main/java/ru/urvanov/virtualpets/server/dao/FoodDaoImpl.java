@@ -16,9 +16,9 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.urvanov.virtualpets.server.domain.Food;
-import ru.urvanov.virtualpets.server.domain.FoodType;
-import ru.urvanov.virtualpets.server.domain.Food_;
+import ru.urvanov.virtualpets.server.dao.domain.Food;
+import ru.urvanov.virtualpets.server.dao.domain.FoodType;
+import ru.urvanov.virtualpets.server.dao.domain.Food_;
 
 /**
  * @author fedya

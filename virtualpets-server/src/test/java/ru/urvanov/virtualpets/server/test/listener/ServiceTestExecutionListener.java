@@ -4,17 +4,13 @@
 package ru.urvanov.virtualpets.server.test.listener;
 
 import org.dbunit.IDatabaseTester;
-import org.dbunit.database.DatabaseConfig;
 import org.dbunit.dataset.IDataSet;
-import org.dbunit.operation.DatabaseOperation;
 import org.dbunit.util.fileloader.XlsDataFileLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.TestContext;
 import org.springframework.test.context.TestExecutionListener;
 
-import jakarta.persistence.EntityManager;
-import ru.urvanov.virtualpets.server.service.BookcaseService;
 import ru.urvanov.virtualpets.server.test.annotation.DataSets;
 
 

@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jakarta.validation.Valid;
 import ru.urvanov.virtualpets.server.controller.site.domain.StatisticsParams;
 import ru.urvanov.virtualpets.server.controller.site.domain.StatisticsParams.StatisticsType;
-import ru.urvanov.virtualpets.server.domain.Pet;
-import ru.urvanov.virtualpets.server.domain.User;
+import ru.urvanov.virtualpets.server.dao.domain.Pet;
+import ru.urvanov.virtualpets.server.dao.domain.User;
 import ru.urvanov.virtualpets.server.service.PetService;
 import ru.urvanov.virtualpets.server.service.UserService;
 

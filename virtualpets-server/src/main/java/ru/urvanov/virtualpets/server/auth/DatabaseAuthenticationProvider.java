@@ -1,6 +1,3 @@
-/**
- * 
- */
 package ru.urvanov.virtualpets.server.auth;
 
 import java.io.UnsupportedEncodingException;
@@ -18,8 +15,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import jakarta.xml.bind.annotation.adapters.HexBinaryAdapter;
-import ru.urvanov.virtualpets.server.domain.User;
-import ru.urvanov.virtualpets.server.service.UserService;
+import ru.urvanov.virtualpets.server.dao.UserDao;
+import ru.urvanov.virtualpets.server.dao.domain.User;
 
 /**
  * @author fedya
@@ -27,7 +24,7 @@ import ru.urvanov.virtualpets.server.service.UserService;
  */
 public class DatabaseAuthenticationProvider implements AuthenticationProvider {
 
-    private UserService userService;
+    private UserDao userDao;
 
     /**
      * 
@@ -67,7 +64,7 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
                      */
                     private static final long serialVersionUID = -6946605296392709613L;};
             }
-            user = userService.findByLoginAndPassword(authentication.getName(),
+            user = userDao.findByLoginAndPassword(authentication.getName(),
                     hexPasswordMd5);
         } catch (jakarta.persistence.NoResultException ex) {
             throw new BadCredentialsException(authentication.getName());
@@ -84,19 +81,12 @@ public class DatabaseAuthenticationProvider implements AuthenticationProvider {
         return true;
     }
 
-    /**
-     * @return the userService
-     */
-    public UserService getUserService() {
-        return userService;
+    public UserDao getUserDao() {
+        return userDao;
     }
 
-    /**
-     * @param userService
-     *            the userService to set
-     */
-    public void setUserService(UserService userService) {
-        this.userService = userService;
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
-
+    
 }

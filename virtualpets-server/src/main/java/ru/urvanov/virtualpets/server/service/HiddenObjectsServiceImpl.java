@@ -31,30 +31,30 @@ import ru.urvanov.virtualpets.server.dao.PetDao;
 import ru.urvanov.virtualpets.server.dao.PetFoodDao;
 import ru.urvanov.virtualpets.server.dao.RoomDao;
 import ru.urvanov.virtualpets.server.dao.UserDao;
-import ru.urvanov.virtualpets.server.domain.Achievement;
-import ru.urvanov.virtualpets.server.domain.AchievementCode;
-import ru.urvanov.virtualpets.server.domain.Book;
-import ru.urvanov.virtualpets.server.domain.Bookcase;
-import ru.urvanov.virtualpets.server.domain.BuildingMaterial;
-import ru.urvanov.virtualpets.server.domain.BuildingMaterialType;
-import ru.urvanov.virtualpets.server.domain.Cloth;
-import ru.urvanov.virtualpets.server.domain.Drink;
-import ru.urvanov.virtualpets.server.domain.DrinkType;
-import ru.urvanov.virtualpets.server.domain.FoodType;
-import ru.urvanov.virtualpets.server.domain.HiddenObjectsCollected;
-import ru.urvanov.virtualpets.server.domain.HiddenObjectsGame;
-import ru.urvanov.virtualpets.server.domain.HiddenObjectsPlayer;
-import ru.urvanov.virtualpets.server.domain.HiddenObjectsReward;
-import ru.urvanov.virtualpets.server.domain.Level;
-import ru.urvanov.virtualpets.server.domain.MachineWithDrinks;
-import ru.urvanov.virtualpets.server.domain.Pet;
-import ru.urvanov.virtualpets.server.domain.PetBuildingMaterial;
-import ru.urvanov.virtualpets.server.domain.PetDrink;
-import ru.urvanov.virtualpets.server.domain.PetFood;
-import ru.urvanov.virtualpets.server.domain.Refrigerator;
-import ru.urvanov.virtualpets.server.domain.Room;
-import ru.urvanov.virtualpets.server.domain.SelectedPet;
-import ru.urvanov.virtualpets.server.domain.User;
+import ru.urvanov.virtualpets.server.dao.domain.Achievement;
+import ru.urvanov.virtualpets.server.dao.domain.AchievementCode;
+import ru.urvanov.virtualpets.server.dao.domain.Book;
+import ru.urvanov.virtualpets.server.dao.domain.Bookcase;
+import ru.urvanov.virtualpets.server.dao.domain.BuildingMaterial;
+import ru.urvanov.virtualpets.server.dao.domain.BuildingMaterialType;
+import ru.urvanov.virtualpets.server.dao.domain.Cloth;
+import ru.urvanov.virtualpets.server.dao.domain.Drink;
+import ru.urvanov.virtualpets.server.dao.domain.DrinkType;
+import ru.urvanov.virtualpets.server.dao.domain.FoodType;
+import ru.urvanov.virtualpets.server.dao.domain.HiddenObjectsCollected;
+import ru.urvanov.virtualpets.server.dao.domain.HiddenObjectsGame;
+import ru.urvanov.virtualpets.server.dao.domain.HiddenObjectsPlayer;
+import ru.urvanov.virtualpets.server.dao.domain.HiddenObjectsReward;
+import ru.urvanov.virtualpets.server.dao.domain.Level;
+import ru.urvanov.virtualpets.server.dao.domain.MachineWithDrinks;
+import ru.urvanov.virtualpets.server.dao.domain.Pet;
+import ru.urvanov.virtualpets.server.dao.domain.PetBuildingMaterial;
+import ru.urvanov.virtualpets.server.dao.domain.PetDrink;
+import ru.urvanov.virtualpets.server.dao.domain.PetFood;
+import ru.urvanov.virtualpets.server.dao.domain.Refrigerator;
+import ru.urvanov.virtualpets.server.dao.domain.Room;
+import ru.urvanov.virtualpets.server.dao.domain.SelectedPet;
+import ru.urvanov.virtualpets.server.dao.domain.User;
 import ru.urvanov.virtualpets.shared.domain.HiddenObjectsGameType;
 import ru.urvanov.virtualpets.shared.domain.LevelInfo;
 import ru.urvanov.virtualpets.shared.exception.DaoException;
@@ -254,7 +254,7 @@ public class HiddenObjectsServiceImpl implements HiddenObjectsService {
                     .setBuildingMaterialType(conversionService.convert(
                             playerReward.getBuildingMaterialType(),
                             ru.urvanov.virtualpets.shared.domain.BuildingMaterialType.class));
-            ru.urvanov.virtualpets.server.domain.AchievementCode[] achievements = playerReward
+            ru.urvanov.virtualpets.server.dao.domain.AchievementCode[] achievements = playerReward
                     .getAchievements();
             ru.urvanov.virtualpets.shared.domain.AchievementCode[] sharedAchievements = new ru.urvanov.virtualpets.shared.domain.AchievementCode[achievements.length];
             for (int m = 0; m < achievements.length; m++) {
@@ -576,10 +576,10 @@ public class HiddenObjectsServiceImpl implements HiddenObjectsService {
                 reward.setExperience(experienceReward);
                 reward.setLevelInfo(levelInfo);
 
-                ru.urvanov.virtualpets.server.domain.AchievementCode[] achievements = petService
+                ru.urvanov.virtualpets.server.dao.domain.AchievementCode[] achievements = petService
                         .calculateAchievements(fullPet)
                         .toArray(
-                                new ru.urvanov.virtualpets.server.domain.AchievementCode[0]);
+                                new ru.urvanov.virtualpets.server.dao.domain.AchievementCode[0]);
 
                 reward.setAchievements(achievements);
                 petDao.save(fullPet);

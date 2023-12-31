@@ -12,9 +12,9 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.urvanov.virtualpets.server.domain.Drink;
-import ru.urvanov.virtualpets.server.domain.DrinkType;
-import ru.urvanov.virtualpets.server.domain.Drink_;
+import ru.urvanov.virtualpets.server.dao.domain.Drink;
+import ru.urvanov.virtualpets.server.dao.domain.DrinkType;
+import ru.urvanov.virtualpets.server.dao.domain.Drink_;
 
 @Repository(value="drinkDao")
 public class DrinkDaoImpl implements DrinkDao {

@@ -12,9 +12,9 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.urvanov.virtualpets.server.domain.Achievement;
-import ru.urvanov.virtualpets.server.domain.AchievementCode;
-import ru.urvanov.virtualpets.server.domain.Achievement_;
+import ru.urvanov.virtualpets.server.dao.domain.Achievement;
+import ru.urvanov.virtualpets.server.dao.domain.AchievementCode;
+import ru.urvanov.virtualpets.server.dao.domain.Achievement_;
 
 @Repository("achievementDao")
 @Transactional

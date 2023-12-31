@@ -14,14 +14,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.urvanov.virtualpets.server.domain.Food;
-import ru.urvanov.virtualpets.server.domain.FoodType;
-import ru.urvanov.virtualpets.server.domain.JournalEntry;
-import ru.urvanov.virtualpets.server.domain.JournalEntryType;
-import ru.urvanov.virtualpets.server.domain.Pet;
-import ru.urvanov.virtualpets.server.domain.PetFood;
-import ru.urvanov.virtualpets.server.domain.PetJournalEntry;
-import ru.urvanov.virtualpets.server.domain.PetType;
+import ru.urvanov.virtualpets.server.dao.FoodDao;
+import ru.urvanov.virtualpets.server.dao.JournalEntryDao;
+import ru.urvanov.virtualpets.server.dao.LevelDao;
+import ru.urvanov.virtualpets.server.dao.PetDao;
+import ru.urvanov.virtualpets.server.dao.UserDao;
+import ru.urvanov.virtualpets.server.dao.domain.Food;
+import ru.urvanov.virtualpets.server.dao.domain.FoodType;
+import ru.urvanov.virtualpets.server.dao.domain.JournalEntry;
+import ru.urvanov.virtualpets.server.dao.domain.JournalEntryType;
+import ru.urvanov.virtualpets.server.dao.domain.Pet;
+import ru.urvanov.virtualpets.server.dao.domain.PetFood;
+import ru.urvanov.virtualpets.server.dao.domain.PetJournalEntry;
+import ru.urvanov.virtualpets.server.dao.domain.PetType;
 import ru.urvanov.virtualpets.server.test.annotation.DataSets;
 
 /**
@@ -31,59 +36,59 @@ import ru.urvanov.virtualpets.server.test.annotation.DataSets;
 public class PetServiceImplTest extends AbstractServiceImplTest {
     
     @Autowired
-    private PetService petService;
+    private PetDao petDao;
     
     @Autowired
-    private UserService userService;
+    private UserDao userDao;
     
     @Autowired
-    private LevelService levelService;
+    private LevelDao levelDao;
     
     @Autowired
-    private JournalEntryService journalEntryService;
+    private JournalEntryDao journalEntryDao;
     
     @Autowired
-    private FoodService foodService;
+    private FoodDao foodDao;
         
     @DataSets(setUpDataSet = "/ru/urvanov/virtualpets/server/service/PetServiceImplTest.xls")
     @Test
     public void testSave() {
-        List<Pet> pets = petService.findByUserId(1);
+        List<Pet> pets = petDao.findByUserId(1);
         int lastSize = pets.size();
         Pet pet = new Pet();
         pet.setName("test4y84hg4");
         pet.setCreatedDate(new Date());
         pet.setLoginDate(new Date());
         pet.setPetType(PetType.CAT);
-        pet.setUser(userService.findByLogin("Clarence"));
-        pet.setLevel(levelService.findById(1));
-        petService.save(pet);
-        int newSize = petService.findByUserId(1).size();
+        pet.setUser(userDao.findByLogin("Clarence"));
+        pet.setLevel(levelDao.findById(1));
+        petDao.save(pet);
+        int newSize = petDao.findByUserId(1).size();
         assertEquals(lastSize + 1, newSize);
     }
     
     @DataSets(setUpDataSet = "/ru/urvanov/virtualpets/server/service/PetServiceImplTest.xls")
     @Test
     public void testGetNewJournalEntriesCount() {
-        Pet pet = petService.findById(1);
-        Long newJournalEntriesCount = petService.getPetNewJournalEntriesCount(pet.getId());
+        Pet pet = petDao.findById(1);
+        Long newJournalEntriesCount = petDao.getPetNewJournalEntriesCount(pet.getId());
         assertEquals(Long.valueOf(0L), newJournalEntriesCount);
     }
     
     @DataSets(setUpDataSet = "/ru/urvanov/virtualpets/server/service/PetServiceImplTest.xls")
     @Test
     public void testAddJournalEntry() {
-        Pet pet = petService.findById(1);
-        JournalEntry journalEntry = journalEntryService.findByCode(JournalEntryType.EAT_SOMETHING);
+        Pet pet = petDao.findById(1);
+        JournalEntry journalEntry = journalEntryDao.findByCode(JournalEntryType.EAT_SOMETHING);
         PetJournalEntry petJournalEntry = new PetJournalEntry();
         petJournalEntry.setJournalEntry(journalEntry);
         petJournalEntry.setReaded(true);
         
         pet.getJournalEntries().put(journalEntry, petJournalEntry);
         //petJournalEntry.setPet(pet);
-        petService.save(pet);
+        petDao.save(pet);
         
-        pet = petService.findFullById(1);
+        pet = petDao.findFullById(1);
         assertTrue(pet.getJournalEntries().get(journalEntry).getReaded());
     }
     
@@ -92,30 +97,17 @@ public class PetServiceImplTest extends AbstractServiceImplTest {
     @Test
     @Transactional
     public void testAddFood() {
-        Pet pet = petService.findById(1);
-        Food food = foodService.findByCode(FoodType.CARROT);
+        Pet pet = petDao.findById(1);
+        Food food = foodDao.findByCode(FoodType.CARROT);
         PetFood petFood = new PetFood();
         petFood.setPet(pet);
         petFood.setFood(food);
         petFood.setFoodCount(10);
         pet.getFoods().put(food,  petFood);
-        petService.save(pet);
+        petDao.save(pet);
         
-        pet = petService.findFullById(1);
+        pet = petDao.findFullById(1);
         assertEquals(10, pet.getFoods().get(food).getFoodCount());
     }
 
-    /**
-     * @return the userService
-     */
-    public UserService getUserService() {
-        return userService;
-    }
-
-    /**
-     * @param userService the userService to set
-     */
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
 }

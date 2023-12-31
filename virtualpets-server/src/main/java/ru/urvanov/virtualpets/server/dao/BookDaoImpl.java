@@ -2,11 +2,10 @@ package ru.urvanov.virtualpets.server.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import ru.urvanov.virtualpets.server.dao.domain.Book;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import ru.urvanov.virtualpets.server.domain.Book;
 
 @Repository("bookDao")
 public class BookDaoImpl implements BookDao {

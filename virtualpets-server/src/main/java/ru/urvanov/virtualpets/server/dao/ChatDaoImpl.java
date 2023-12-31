@@ -9,11 +9,10 @@ import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import ru.urvanov.virtualpets.server.dao.domain.Chat;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import ru.urvanov.virtualpets.server.domain.Chat;
 
 /**
  * @author fedya

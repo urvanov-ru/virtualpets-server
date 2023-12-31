@@ -17,12 +17,12 @@
         <spring:message code="pet_experience" var="pet_experience_var" />
         <spring:message code="achievements" var="achievements_var" />
         <H1><c:out value="${pet_info_var}" /></H1>
-        <p><c:out value="${pet_name_var}" /> : <c:out value="${fullPet.name}" /></p>
-        <p><c:out value="${pet_level_var}" /> : <c:out value="${fullPet.level.id}" /></p>
-        <p><c:out value="${pet_experience_var}" /> : <c:out value="${fullPet.experience}" /></p>
+        <p><c:out value="${pet_name_var}" /> : <c:out value="${pet.name}" /></p>
+        <p><c:out value="${pet_level_var}" /> : <c:out value="${pet.level}" /></p>
+        <p><c:out value="${pet_experience_var}" /> : <c:out value="${pet.experience}" /></p>
         <H1><c:out value="${achievements}" /></H1>
-        <c:forEach var="info" items="${allAchievements}">
-            <c:if test="${fullPet.achievements.containsKey(info)}">
+        <c:forEach var="info" items="${pet.achievements}">
+            <c:if test="${info.unlocked}">
                 <div class="achievementUnlocked">
                     <p><spring:message
                         code="ru.urvanov.virtualpets.client.localization.achievement.${info.code}"
@@ -37,7 +37,7 @@
                     </p>
                 </div>
             </c:if>
-            <c:if test="${!fullPet.achievements.containsKey(info)}">
+            <c:if test="${!info.unlocked}">
                 <div class="achievementLocked">
                     <p>
                     <spring:message

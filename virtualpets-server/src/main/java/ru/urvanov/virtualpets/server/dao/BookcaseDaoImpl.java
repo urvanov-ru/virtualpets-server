@@ -18,8 +18,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.urvanov.virtualpets.server.domain.Bookcase;
-import ru.urvanov.virtualpets.server.domain.Bookcase_;
+import ru.urvanov.virtualpets.server.dao.domain.Bookcase;
+import ru.urvanov.virtualpets.server.dao.domain.Bookcase_;
 
 /**
  * @author fedya

@@ -4,7 +4,6 @@
 package ru.urvanov.virtualpets.server.service;
 
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -14,10 +13,13 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ru.urvanov.virtualpets.server.domain.Food;
-import ru.urvanov.virtualpets.server.domain.FoodType;
-import ru.urvanov.virtualpets.server.domain.Pet;
-import ru.urvanov.virtualpets.server.domain.PetFood;
+import ru.urvanov.virtualpets.server.dao.FoodDao;
+import ru.urvanov.virtualpets.server.dao.PetDao;
+import ru.urvanov.virtualpets.server.dao.PetFoodDao;
+import ru.urvanov.virtualpets.server.dao.domain.Food;
+import ru.urvanov.virtualpets.server.dao.domain.FoodType;
+import ru.urvanov.virtualpets.server.dao.domain.Pet;
+import ru.urvanov.virtualpets.server.dao.domain.PetFood;
 import ru.urvanov.virtualpets.server.test.annotation.DataSets;
 
 /**
@@ -27,34 +29,34 @@ import ru.urvanov.virtualpets.server.test.annotation.DataSets;
 public class PetFoodServiceImplTest extends AbstractServiceImplTest {
     
     @Autowired
-    private PetFoodService petFoodService;
+    private PetFoodDao petFoodDao;
     
     @Autowired
-    private FoodService foodService;
+    private FoodDao foodDao;
     
     @Autowired
-    private PetService petService;
+    private PetDao petDao;
     
     @DataSets(setUpDataSet = "/ru/urvanov/virtualpets/server/service/PetFoodServiceImplTest.xls")
     @Test
     public void testFindByPetId() {
-        List<PetFood> foods = petFoodService.findByPetId(1);
+        List<PetFood> foods = petFoodDao.findByPetId(1);
         assertEquals(foods.size(), 4);
     }
     
     @DataSets(setUpDataSet = "/ru/urvanov/virtualpets/server/service/PetFoodServiceImplTest.xls")
     @Test
     public void testFindByPet() {
-        Pet pet = petService.findById(1);
+        Pet pet = petDao.findById(1);
         assertNotNull(pet);
-        List<PetFood> foods = petFoodService.findByPet(pet);
+        List<PetFood> foods = petFoodDao.findByPet(pet);
         assertEquals(foods.size(), 4);
     }
     
     @DataSets(setUpDataSet = "/ru/urvanov/virtualpets/server/service/PetFoodServiceImplTest.xls")
     @Test
     public void testFindById() {
-        PetFood food = petFoodService.findById(10);
+        PetFood food = petFoodDao.findById(10);
         assertNotNull(food);
         assertEquals(food.getId(), Integer.valueOf(10));
     }
@@ -62,71 +64,27 @@ public class PetFoodServiceImplTest extends AbstractServiceImplTest {
     @DataSets(setUpDataSet = "/ru/urvanov/virtualpets/server/service/PetFoodServiceImplTest.xls")
     @Test
     public void testSave() {
-        Food foodCarrot = foodService.findByCode(FoodType.CARROT);
+        Food foodCarrot = foodDao.findByCode(FoodType.CARROT);
         PetFood petFood = new PetFood();
-        Pet pet = petService.getReference(1);
+        Pet pet = petDao.getReference(1);
         petFood.setFood(foodCarrot);
         petFood.setFoodCount(100);
         petFood.setPet(pet);
-        petFoodService.save(petFood);
+        petFoodDao.save(petFood);
         assertNotNull(petFood.getId());
     }
     
     @DataSets(setUpDataSet = "/ru/urvanov/virtualpets/server/service/PetFoodServiceImplTest.xls")
     @Test
     public void testFindByPetIdAndFoodType() {
-        PetFood food = petFoodService.findByPetIdAndFoodType(1, FoodType.DRY_FOOD);
+        PetFood food = petFoodDao.findByPetIdAndFoodType(1, FoodType.DRY_FOOD);
         assertNotNull(food);
     }
     
     @DataSets(setUpDataSet = "/ru/urvanov/virtualpets/server/service/PetFoodServiceImplTest.xls")
     @Test
     public void testFindByPetIdAndFoodType2() {
-        PetFood food = petFoodService.findByPetIdAndFoodType(13463456, FoodType.CHOCOLATE);
+        PetFood food = petFoodDao.findByPetIdAndFoodType(13463456, FoodType.CHOCOLATE);
         assertNull(food);
     }
-
-    /**
-     * @return the petFoodService
-     */
-    public PetFoodService getPetFoodService() {
-        return petFoodService;
-    }
-
-    /**
-     * @param petFoodService the petFoodService to set
-     */
-    public void setPetFoodService(PetFoodService petFoodService) {
-        this.petFoodService = petFoodService;
-    }
-
-    /**
-     * @return the foodService
-     */
-    public FoodService getFoodService() {
-        return foodService;
-    }
-
-    /**
-     * @param foodService the foodService to set
-     */
-    public void setFoodService(FoodService foodService) {
-        this.foodService = foodService;
-    }
-
-    /**
-     * @return the petService
-     */
-    public PetService getPetService() {
-        return petService;
-    }
-
-    /**
-     * @param petService the petService to set
-     */
-    public void setPetService(PetService petService) {
-        this.petService = petService;
-    }
-
-
 }

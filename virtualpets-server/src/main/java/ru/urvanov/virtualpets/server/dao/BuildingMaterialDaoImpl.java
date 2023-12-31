@@ -15,9 +15,9 @@ import jakarta.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
-import ru.urvanov.virtualpets.server.domain.BuildingMaterial;
-import ru.urvanov.virtualpets.server.domain.BuildingMaterialType;
-import ru.urvanov.virtualpets.server.domain.BuildingMaterial_;
+import ru.urvanov.virtualpets.server.dao.domain.BuildingMaterial;
+import ru.urvanov.virtualpets.server.dao.domain.BuildingMaterialType;
+import ru.urvanov.virtualpets.server.dao.domain.BuildingMaterial_;
 
 /**
  * @author fedya

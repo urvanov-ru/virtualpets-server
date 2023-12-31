@@ -13,9 +13,9 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.urvanov.virtualpets.server.domain.JournalEntry;
-import ru.urvanov.virtualpets.server.domain.JournalEntryType;
-import ru.urvanov.virtualpets.server.domain.JournalEntry_;
+import ru.urvanov.virtualpets.server.dao.domain.JournalEntry;
+import ru.urvanov.virtualpets.server.dao.domain.JournalEntryType;
+import ru.urvanov.virtualpets.server.dao.domain.JournalEntry_;
 
 @Repository("journalEntryDao")
 public class JournalEntryDaoImpl implements JournalEntryDao {

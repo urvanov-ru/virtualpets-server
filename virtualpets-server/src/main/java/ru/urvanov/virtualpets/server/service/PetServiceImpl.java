@@ -30,31 +30,33 @@ import ru.urvanov.virtualpets.server.dao.PetDao;
 import ru.urvanov.virtualpets.server.dao.PetFoodDao;
 import ru.urvanov.virtualpets.server.dao.PetJournalEntryDao;
 import ru.urvanov.virtualpets.server.dao.UserDao;
-import ru.urvanov.virtualpets.server.domain.Achievement;
-import ru.urvanov.virtualpets.server.domain.AchievementCode;
-import ru.urvanov.virtualpets.server.domain.Book;
-import ru.urvanov.virtualpets.server.domain.Bookcase;
-import ru.urvanov.virtualpets.server.domain.BookcaseCost;
-import ru.urvanov.virtualpets.server.domain.BuildingMaterial;
-import ru.urvanov.virtualpets.server.domain.Cloth;
-import ru.urvanov.virtualpets.server.domain.Drink;
-import ru.urvanov.virtualpets.server.domain.DrinkType;
-import ru.urvanov.virtualpets.server.domain.FoodType;
-import ru.urvanov.virtualpets.server.domain.JournalEntry;
-import ru.urvanov.virtualpets.server.domain.JournalEntryType;
-import ru.urvanov.virtualpets.server.domain.Level;
-import ru.urvanov.virtualpets.server.domain.MachineWithDrinks;
-import ru.urvanov.virtualpets.server.domain.MachineWithDrinksCost;
-import ru.urvanov.virtualpets.server.domain.Pet;
-import ru.urvanov.virtualpets.server.domain.PetAchievement;
-import ru.urvanov.virtualpets.server.domain.PetBuildingMaterial;
-import ru.urvanov.virtualpets.server.domain.PetDrink;
-import ru.urvanov.virtualpets.server.domain.PetFood;
-import ru.urvanov.virtualpets.server.domain.PetJournalEntry;
-import ru.urvanov.virtualpets.server.domain.Refrigerator;
-import ru.urvanov.virtualpets.server.domain.RefrigeratorCost;
-import ru.urvanov.virtualpets.server.domain.SelectedPet;
-import ru.urvanov.virtualpets.server.domain.User;
+import ru.urvanov.virtualpets.server.dao.domain.Achievement;
+import ru.urvanov.virtualpets.server.dao.domain.AchievementCode;
+import ru.urvanov.virtualpets.server.dao.domain.Book;
+import ru.urvanov.virtualpets.server.dao.domain.Bookcase;
+import ru.urvanov.virtualpets.server.dao.domain.BookcaseCost;
+import ru.urvanov.virtualpets.server.dao.domain.BuildingMaterial;
+import ru.urvanov.virtualpets.server.dao.domain.Cloth;
+import ru.urvanov.virtualpets.server.dao.domain.Drink;
+import ru.urvanov.virtualpets.server.dao.domain.DrinkType;
+import ru.urvanov.virtualpets.server.dao.domain.FoodType;
+import ru.urvanov.virtualpets.server.dao.domain.JournalEntry;
+import ru.urvanov.virtualpets.server.dao.domain.JournalEntryType;
+import ru.urvanov.virtualpets.server.dao.domain.Level;
+import ru.urvanov.virtualpets.server.dao.domain.MachineWithDrinks;
+import ru.urvanov.virtualpets.server.dao.domain.MachineWithDrinksCost;
+import ru.urvanov.virtualpets.server.dao.domain.Pet;
+import ru.urvanov.virtualpets.server.dao.domain.PetAchievement;
+import ru.urvanov.virtualpets.server.dao.domain.PetBuildingMaterial;
+import ru.urvanov.virtualpets.server.dao.domain.PetDrink;
+import ru.urvanov.virtualpets.server.dao.domain.PetFood;
+import ru.urvanov.virtualpets.server.dao.domain.PetJournalEntry;
+import ru.urvanov.virtualpets.server.dao.domain.Refrigerator;
+import ru.urvanov.virtualpets.server.dao.domain.RefrigeratorCost;
+import ru.urvanov.virtualpets.server.dao.domain.SelectedPet;
+import ru.urvanov.virtualpets.server.dao.domain.User;
+import ru.urvanov.virtualpets.server.service.domain.PetDetails;
+import ru.urvanov.virtualpets.server.service.domain.PetInformationPageAchievement;
 import ru.urvanov.virtualpets.server.service.exception.NotEnoughPetResourcesException;
 import ru.urvanov.virtualpets.shared.domain.CreatePetArg;
 import ru.urvanov.virtualpets.shared.domain.CreatePetResult;
@@ -368,11 +370,11 @@ public class PetServiceImpl implements PetService, ru.urvanov.virtualpets.shared
     public GetPetJournalEntriesResult getPetJournalEntries(int count) {
         ServletRequestAttributes sra = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
         SelectedPet selectedPet = (SelectedPet) sra.getAttribute("pet", ServletRequestAttributes.SCOPE_SESSION);
-        List<ru.urvanov.virtualpets.server.domain.PetJournalEntry> serverPetJournalEntries = petJournalEntryDao.findLastByPetId(selectedPet.getId(), count);
+        List<ru.urvanov.virtualpets.server.dao.domain.PetJournalEntry> serverPetJournalEntries = petJournalEntryDao.findLastByPetId(selectedPet.getId(), count);
         GetPetJournalEntriesResult result = new GetPetJournalEntriesResult();
         ru.urvanov.virtualpets.shared.domain.PetJournalEntry[] sharedEntries = new ru.urvanov.virtualpets.shared.domain.PetJournalEntry[serverPetJournalEntries.size()];
         for (int n = 0; n < serverPetJournalEntries.size(); n++) {
-            ru.urvanov.virtualpets.server.domain.PetJournalEntry serverPetJournalEntry = serverPetJournalEntries.get(n);
+            ru.urvanov.virtualpets.server.dao.domain.PetJournalEntry serverPetJournalEntry = serverPetJournalEntries.get(n);
             serverPetJournalEntry.setReaded(true);
             petJournalEntryDao.save(serverPetJournalEntry);
             int sharedIndex = serverPetJournalEntries.size() - 1 - n;
@@ -470,7 +472,7 @@ public class PetServiceImpl implements PetService, ru.urvanov.virtualpets.shared
         pet.setUser(userDao.getReference(user.getId()));
         pet.setComment(arg.getComment());
         pet.setPetType(conversionService.convert(arg.getPetType(),
-                ru.urvanov.virtualpets.server.domain.PetType.class));
+                ru.urvanov.virtualpets.server.dao.domain.PetType.class));
         Level level = levelDao.findById(1);
         pet.setLevel(level);
         petDao.save(pet);
@@ -564,7 +566,7 @@ public class PetServiceImpl implements PetService, ru.urvanov.virtualpets.shared
                 ServletRequestAttributes.SCOPE_SESSION);
 
         FoodType foodType = conversionService.convert(satietyArg.getFoodType(),
-                ru.urvanov.virtualpets.server.domain.FoodType.class);
+                ru.urvanov.virtualpets.server.dao.domain.FoodType.class);
         Pet pet = petDao.findById(selectedPet.getId());
         PetFood food = petFoodDao.findByPetIdAndFoodType(pet.getId(), foodType);
         if (food == null) {
@@ -660,6 +662,25 @@ public class PetServiceImpl implements PetService, ru.urvanov.virtualpets.shared
         }
         ru.urvanov.virtualpets.shared.domain.GetPetRucksackInnerResult result = new ru.urvanov.virtualpets.shared.domain.GetPetRucksackInnerResult();
         result.setBuildingMaterialCounts(buildMaterialCounts);
+        return result;
+    }
+
+    @Override
+    public PetDetails petInformationPage(Integer id) {
+        Pet fullPet = petDao.findFullById(id);
+        List<Achievement> allAchievements = achievementDao.findAll();
+        PetDetails result = new PetDetails();
+        result.setId(fullPet.getId());
+        result.setName(fullPet.getName());
+        result.setLevel(fullPet.getLevel().getId());
+        List<PetInformationPageAchievement> achievements = new ArrayList<>();
+        result.setAchievements(achievements);
+        for (Achievement achievement : allAchievements) {
+            PetInformationPageAchievement petInformationPageAchievement = new PetInformationPageAchievement();
+            petInformationPageAchievement.setCode(achievement.getCode().name());
+            petInformationPageAchievement.setUnlocked(fullPet.getAchievements().containsKey(achievement));
+            result.setAchievements(achievements);
+        }
         return result;
     }
 

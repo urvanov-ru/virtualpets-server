@@ -12,11 +12,11 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.urvanov.virtualpets.server.domain.JournalEntryType;
-import ru.urvanov.virtualpets.server.domain.JournalEntry_;
-import ru.urvanov.virtualpets.server.domain.PetJournalEntry;
-import ru.urvanov.virtualpets.server.domain.PetJournalEntry_;
-import ru.urvanov.virtualpets.server.domain.Pet_;
+import ru.urvanov.virtualpets.server.dao.domain.JournalEntryType;
+import ru.urvanov.virtualpets.server.dao.domain.PetJournalEntry;
+import ru.urvanov.virtualpets.server.dao.domain.JournalEntry_;
+import ru.urvanov.virtualpets.server.dao.domain.PetJournalEntry_;
+import ru.urvanov.virtualpets.server.dao.domain.Pet_;
 
 @Repository("petJournalEntryDao")
 public class PetJournalEntryDaoImpl implements PetJournalEntryDao {

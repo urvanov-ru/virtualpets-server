@@ -3,7 +3,7 @@
  */
 package ru.urvanov.virtualpets.server.dao;
 
-import ru.urvanov.virtualpets.server.domain.MachineWithDrinks;
+import ru.urvanov.virtualpets.server.dao.domain.MachineWithDrinks;
 
 /**
  * @author fedya

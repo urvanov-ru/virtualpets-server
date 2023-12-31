@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.xml.bind.annotation.adapters.HexBinaryAdapter;
 import ru.urvanov.virtualpets.server.controller.site.domain.RecoverPassword;
-import ru.urvanov.virtualpets.server.domain.User;
+import ru.urvanov.virtualpets.server.dao.domain.User;
 import ru.urvanov.virtualpets.server.service.UserService;
 
 /**
@@ -51,24 +51,25 @@ public class RecoverPasswordController {
         User user = userService.findByRecoverPasswordKey(recoverPassword
                 .getRecoverPasswordKey());
         if (user != null) {
-            MessageDigest md5;
-            try {
-                md5 = MessageDigest.getInstance("MD5");
-            } catch (NoSuchAlgorithmException e) {
-                log.error("MD5 is not available.", e);
-                return "passwordChangeFailed";
-            }
-            String hexPasswordMd5;
-            try {
-                hexPasswordMd5 = (new HexBinaryAdapter()).marshal(md5
-                        .digest(recoverPassword.getNewPassword().getBytes("UTF-8")));
-            } catch (UnsupportedEncodingException e) {
-                log.error("Unsupported encoding", e);
-                return "passwordChangeFailed";
-            }
-            user.setPassword(hexPasswordMd5);
-            user.setRecoverPasswordKey(null);
-            userService.save(user);
+//            MessageDigest md5;
+//            try {
+//                md5 = MessageDigest.getInstance("MD5");
+//            } catch (NoSuchAlgorithmException e) {
+//                log.error("MD5 is not available.", e);
+//                return "passwordChangeFailed";
+//            }
+//            String hexPasswordMd5;
+//            try {
+//                hexPasswordMd5 = (new HexBinaryAdapter()).marshal(md5
+//                        .digest(recoverPassword.getNewPassword().getBytes("UTF-8")));
+//            } catch (UnsupportedEncodingException e) {
+//                log.error("Unsupported encoding", e);
+//                return "passwordChangeFailed";
+//            }
+//            user.setPassword(hexPasswordMd5);
+//            user.setRecoverPasswordKey(null);
+//            userService.save(user);
+            // TODO: implement password change
             return "passwordChanged";
         } else {
             return "passwordChangeFailed";

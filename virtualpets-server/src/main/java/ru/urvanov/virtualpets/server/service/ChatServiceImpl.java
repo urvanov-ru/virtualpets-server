@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 
 import ru.urvanov.virtualpets.server.dao.ChatDao;
 import ru.urvanov.virtualpets.server.dao.UserDao;
-import ru.urvanov.virtualpets.server.domain.Chat;
-import ru.urvanov.virtualpets.server.domain.User;
+import ru.urvanov.virtualpets.server.dao.domain.Chat;
+import ru.urvanov.virtualpets.server.dao.domain.User;
 import ru.urvanov.virtualpets.shared.domain.ChatMessage;
 import ru.urvanov.virtualpets.shared.domain.RefreshChatArg;
 import ru.urvanov.virtualpets.shared.domain.RefreshChatResult;

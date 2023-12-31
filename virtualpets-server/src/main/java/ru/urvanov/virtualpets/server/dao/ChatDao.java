@@ -5,7 +5,7 @@ package ru.urvanov.virtualpets.server.dao;
 
 import java.util.List;
 
-import ru.urvanov.virtualpets.server.domain.Chat;
+import ru.urvanov.virtualpets.server.dao.domain.Chat;
 
 /**
  * @author fedya

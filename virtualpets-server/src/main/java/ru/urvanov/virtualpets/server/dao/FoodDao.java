@@ -3,8 +3,8 @@
  */
 package ru.urvanov.virtualpets.server.dao;
 
-import ru.urvanov.virtualpets.server.domain.Food;
-import ru.urvanov.virtualpets.server.domain.FoodType;
+import ru.urvanov.virtualpets.server.dao.domain.Food;
+import ru.urvanov.virtualpets.server.dao.domain.FoodType;
 
 /**
  * @author fedya

@@ -5,7 +5,7 @@ package ru.urvanov.virtualpets.server.dao;
 
 import java.util.List;
 
-import ru.urvanov.virtualpets.server.domain.Pet;
+import ru.urvanov.virtualpets.server.dao.domain.Pet;
 
 /**
  * @author fedya

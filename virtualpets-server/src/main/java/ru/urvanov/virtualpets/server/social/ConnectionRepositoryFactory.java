@@ -20,9 +20,9 @@ package ru.urvanov.virtualpets.server.social;
 //        org.springframework.security.core.context.SecurityContext context = SecurityContextHolder.getContext();
 //        Authentication auth = context.getAuthentication();
 //        Object principal = auth.getPrincipal();
-//        if (principal instanceof ru.urvanov.virtualpets.server.domain.User)
+//        if (principal instanceof ru.urvanov.virtualpets.server.dao.domain.User)
 //        {
-//            ru.urvanov.virtualpets.server.domain.User user = (ru.urvanov.virtualpets.server.domain.User)principal;
+//            ru.urvanov.virtualpets.server.dao.domain.User user = (ru.urvanov.virtualpets.server.dao.domain.User)principal;
 //            return usersConnectionRepository.createConnectionRepository(Long.toString(user.getId()));
 //        } else {
 //            return usersConnectionRepository.createConnectionRepository("anonymous");

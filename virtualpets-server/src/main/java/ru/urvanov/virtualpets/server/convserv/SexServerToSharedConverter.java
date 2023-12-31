@@ -4,11 +4,11 @@ import org.springframework.core.convert.converter.Converter;
 
 public class SexServerToSharedConverter
         implements
-        Converter<ru.urvanov.virtualpets.server.domain.Sex, ru.urvanov.virtualpets.shared.domain.Sex> {
+        Converter<ru.urvanov.virtualpets.server.dao.domain.Sex, ru.urvanov.virtualpets.shared.domain.Sex> {
 
     @Override
     public ru.urvanov.virtualpets.shared.domain.Sex convert(
-            ru.urvanov.virtualpets.server.domain.Sex source) {
+            ru.urvanov.virtualpets.server.dao.domain.Sex source) {
         if (source == null) {
         }
         switch (source) {

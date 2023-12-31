@@ -7,11 +7,10 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import ru.urvanov.virtualpets.server.dao.domain.Level;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import ru.urvanov.virtualpets.server.domain.Level;
 
 @Repository("level")
 @Transactional
