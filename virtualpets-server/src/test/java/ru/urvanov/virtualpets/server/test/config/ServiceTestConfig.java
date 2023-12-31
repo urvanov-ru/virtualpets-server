@@ -39,7 +39,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
  */
 @Configuration
 @ImportResource("file:src/main/webapp/WEB-INF/spring/servlet-tx.xml")
-@ComponentScan(basePackages = {"ru.urvanov.virtualpets.server.service","ru.urvanov.virtualpets.server.dao"})
+@ComponentScan(basePackages = {"ru.urvanov.virtualpets.server.dao"})
 @Profile("test")
 public class ServiceTestConfig {
 
