@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ru.urvanov.virtualpets.server.service;
+package ru.urvanov.virtualpets.server.dao;
 
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -17,7 +17,7 @@ import ru.urvanov.virtualpets.server.dao.domain.JournalEntryType;
  * @author fedya
  *
  */
-public class JournalServiceImplTest extends AbstractServiceImplTest {
+public class JournalDaoImplTest extends AbstractDaoImplTest {
     
     @Autowired
     private JournalEntryDao journalEntryDao;

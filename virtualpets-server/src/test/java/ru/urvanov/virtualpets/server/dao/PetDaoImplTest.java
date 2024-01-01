@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ru.urvanov.virtualpets.server.service;
+package ru.urvanov.virtualpets.server.dao;
 
 
 import static org.junit.Assert.assertTrue;
@@ -33,7 +33,7 @@ import ru.urvanov.virtualpets.server.test.annotation.DataSets;
  * @author fedya
  *
  */
-public class PetServiceImplTest extends AbstractServiceImplTest {
+public class PetDaoImplTest extends AbstractDaoImplTest {
     
     @Autowired
     private PetDao petDao;

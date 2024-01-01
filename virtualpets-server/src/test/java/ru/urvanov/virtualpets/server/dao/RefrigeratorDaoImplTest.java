@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ru.urvanov.virtualpets.server.service;
+package ru.urvanov.virtualpets.server.dao;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -17,7 +17,7 @@ import ru.urvanov.virtualpets.server.test.annotation.DataSets;
  * @author fedya
  *
  */
-public class RefrigeratorServiceImplTest extends AbstractServiceImplTest {
+public class RefrigeratorDaoImplTest extends AbstractDaoImplTest {
     
     @Autowired
     private RefrigeratorDao refrigeratorDao;

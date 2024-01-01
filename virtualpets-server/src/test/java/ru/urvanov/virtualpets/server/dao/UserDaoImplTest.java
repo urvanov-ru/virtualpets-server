@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ru.urvanov.virtualpets.server.service;
+package ru.urvanov.virtualpets.server.dao;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,7 +20,7 @@ import ru.urvanov.virtualpets.server.test.annotation.DataSets;
  * @author fedya
  * 
  */
-public class UserServiceImplTest extends AbstractServiceImplTest {
+public class UserDaoImplTest extends AbstractDaoImplTest {
 
     @Autowired
     private UserDao userDao;

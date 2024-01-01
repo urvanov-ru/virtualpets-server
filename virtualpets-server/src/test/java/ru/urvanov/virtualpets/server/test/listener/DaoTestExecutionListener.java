@@ -19,13 +19,13 @@ import ru.urvanov.virtualpets.server.test.annotation.DataSets;
  * @author fedya
  *
  */
-public class ServiceTestExecutionListener implements TestExecutionListener {
+public class DaoTestExecutionListener implements TestExecutionListener {
 
-	private Logger logger = LoggerFactory.getLogger(ServiceTestExecutionListener.class);
+	private Logger logger = LoggerFactory.getLogger(DaoTestExecutionListener.class);
     /**
      * 
      */
-    public ServiceTestExecutionListener() {
+    public DaoTestExecutionListener() {
         // TODO Auto-generated constructor stub
     }
 

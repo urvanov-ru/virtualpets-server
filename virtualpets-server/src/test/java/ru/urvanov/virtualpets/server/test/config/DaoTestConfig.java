@@ -41,8 +41,9 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 @ImportResource("file:src/main/webapp/WEB-INF/spring/servlet-tx.xml")
 @ComponentScan(basePackages = {"ru.urvanov.virtualpets.server.dao"})
 @Profile("test")
-public class ServiceTestConfig {
+public class DaoTestConfig {
 
+    
     /*@Bean
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ru.urvanov.virtualpets.server.service;
+package ru.urvanov.virtualpets.server.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -20,7 +20,7 @@ import ru.urvanov.virtualpets.server.test.annotation.DataSets;
  * @author fedya
  *
  */
-public class RoomServiceImplTest extends AbstractServiceImplTest {
+public class RoomDaoImplTest extends AbstractDaoImplTest {
     
     @Autowired
     private RoomDao roomDao;
