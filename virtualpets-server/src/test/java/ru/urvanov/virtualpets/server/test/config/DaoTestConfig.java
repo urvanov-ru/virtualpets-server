@@ -56,7 +56,7 @@ public class DaoTestConfig {
         BasicDataSource result = new BasicDataSource();
         // result.setDriverClassName("com.mysql.jdbc.Driver");
         //result.setUrl("jdbc:tc:mysql:8.0.33:///virtualpets?TC_INITSCRIPT=schema.sql");
-        result.setUrl("jdbc:tc:postgresql:15.3:///databasename?TC_INITSCRIPT=schema.sql");
+        result.setUrl("jdbc:tc:postgresql:16.1:///databasename?TC_INITSCRIPT=init.sql");
         //ClassPathResource schema = new ClassPathResource("/schema.sql");
         //String schemaContent = "";
         //try (InputStream inputStream = schema.getInputStream()) {
