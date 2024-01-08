@@ -4,8 +4,14 @@
 package ru.urvanov.virtualpets.server.dao.domain;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -38,7 +44,7 @@ import jakarta.validation.constraints.Size;
     @NamedQuery(name="findByLoginAndPassword", query="from User u where u.login=:login and u.password=:password"),
     @NamedQuery(name="findOnline", query="from User u where u.activeDate > :date"),
     @NamedQuery(name="findByLoginAndEmail", query="from User u where u.login=:login and u.email=:email")})
-public class User implements Serializable{
+public class User implements UserDetails, Serializable{
 
     /**
      * 
@@ -461,6 +467,38 @@ public class User implements Serializable{
      */
     public void setTwitterKey(String twitterKey) {
         this.twitterKey = twitterKey;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> granted = new HashSet<GrantedAuthority>();
+        granted.add(new SimpleGrantedAuthority("ROLE_USER"));
+        return granted;
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
 }

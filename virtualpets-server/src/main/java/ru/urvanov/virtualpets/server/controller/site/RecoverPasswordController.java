@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import jakarta.xml.bind.annotation.adapters.HexBinaryAdapter;
+//import jakarta.xml.bind.annotation.adapters.HexBinaryAdapter;
 import ru.urvanov.virtualpets.server.controller.site.domain.RecoverPassword;
 import ru.urvanov.virtualpets.server.dao.domain.User;
 import ru.urvanov.virtualpets.server.service.UserService;

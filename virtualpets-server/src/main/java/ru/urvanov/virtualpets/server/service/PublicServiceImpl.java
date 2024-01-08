@@ -26,9 +26,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import jakarta.xml.bind.annotation.adapters.HexBinaryAdapter;
 import ru.urvanov.virtualpets.server.dao.UserDao;
 import ru.urvanov.virtualpets.server.dao.domain.User;
 import ru.urvanov.virtualpets.shared.domain.GetServersArg;
@@ -67,6 +67,9 @@ public class PublicServiceImpl implements PublicService {
 
     @Value("${application.url}")
     private String applicationUrl;
+    
+    @Autowired
+    private BCryptPasswordEncoder bcryptEncoder;
 
     @Override
     public ServerInfo[] getServers(GetServersArg arg) throws ServiceException,
@@ -102,20 +105,7 @@ public class PublicServiceImpl implements PublicService {
             User user = new User();
             user.setLogin(arg.getLogin());
             user.setName(arg.getLogin());
-            MessageDigest md5;
-            try {
-                md5 = MessageDigest.getInstance("MD5");
-            } catch (NoSuchAlgorithmException e) {
-                throw new ServiceException("MD5 is not available.", e);
-            }
-            String hexPasswordMd5 = null;
-            try {
-                hexPasswordMd5 = (new HexBinaryAdapter()).marshal(md5
-                        .digest(arg.getPassword().getBytes("UTF-8")));
-            } catch (UnsupportedEncodingException e) {
-                throw new ServiceException(e);
-            }
-            user.setPassword(hexPasswordMd5);
+            user.setPassword(bcryptEncoder.encode(arg.getPassword()));
             user.setEmail(arg.getEmail());
             user.setRegistrationDate(new Date());
             user.setRole(ru.urvanov.virtualpets.server.dao.domain.Role.USER);
