@@ -71,6 +71,10 @@
             <artifactId>jakarta.validation-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
 
         <!-- tests -->
         <dependency>
