@@ -10,6 +10,7 @@ import java.util.Random;
 
 //import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.security.core.Authentication;
@@ -53,7 +54,7 @@ public class UserServiceImpl implements UserService, ru.urvanov.virtualpets.shar
     @Autowired
     private MessageSource messageSource;
     
-    @Autowired
+    @Value("${application.version}")
     private String version;
 
     @Override

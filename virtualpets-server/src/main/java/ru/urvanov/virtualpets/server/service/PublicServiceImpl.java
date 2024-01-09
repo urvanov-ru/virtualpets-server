@@ -62,7 +62,7 @@ public class PublicServiceImpl implements PublicService {
     @Autowired
     private SimpleMailMessage templateMessage;
 
-    @Autowired
+    @Value("${application.version}")
     private String version;
 
     @Value("${application.url}")
