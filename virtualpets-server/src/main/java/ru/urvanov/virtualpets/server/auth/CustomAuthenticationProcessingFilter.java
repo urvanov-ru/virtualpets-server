@@ -22,7 +22,7 @@ import ru.urvanov.virtualpets.shared.domain.LoginArg;
 
 public class CustomAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
-    protected CustomAuthenticationProcessingFilter(AuthenticationManager authenticationManager) {
+    public CustomAuthenticationProcessingFilter(AuthenticationManager authenticationManager) {
         super(new AntPathRequestMatcher("/rest/v1/UserService/login", "POST"), authenticationManager);
         this.setAuthenticationSuccessHandler(new AuthenticationSuccessHandler() {
 
