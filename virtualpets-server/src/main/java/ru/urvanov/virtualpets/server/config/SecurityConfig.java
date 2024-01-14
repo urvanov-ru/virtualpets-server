@@ -35,9 +35,20 @@ public class SecurityConfig {
     }
     
     @Bean
+    public SecurityFilterChain securityFilterChainAll(HttpSecurity http) throws Exception {
+        return http
+                .authorizeHttpRequests((authorize) ->
+                    authorize.requestMatchers("/styles/**").permitAll()
+                    .requestMatchers("/images/**").permitAll()
+                    .requestMatchers("/site/**").permitAll()
+                )
+                .build();
+    }
+    
+    @Bean
     public SecurityFilterChain securityFilterChain0(HttpSecurity http) throws Exception {
         return http
-                .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/site/*").permitAll())
+                .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/site/**").permitAll())
                 .build();
     }
     
