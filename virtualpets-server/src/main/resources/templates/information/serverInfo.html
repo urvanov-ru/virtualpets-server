@@ -17,7 +17,7 @@
                 <p>
                 <table>
                     <caption th:text="${server_info}"></caption>
-                    <tr  th:each="info : ${infos}">
+                    <tr th:each="info : ${infos}">
                         <td th:text="${info.key}"></td>
                         <td th:text="${info.value}"></td>
                     </tr>
