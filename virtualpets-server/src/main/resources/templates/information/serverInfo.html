@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html th:lang="${#locale}">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/styles/wood/wood.css" type="text/css"
+    media="screen" />
+</head>
+<body>
+    <div th:replace="fragments/header :: header">
+    </div>
+    <div th:replace="fragments/menu :: menu">
+    </div>
+    <div class="body">
+        <div id="main">
+        
+            <H1 th:text="${server_info}"></H1>
+                <p>
+                <table>
+                    <caption th:text="${server_info}"></caption>
+                    <tr  th:each="info : ${infos}">
+                        <td th:text="${info.key}"></td>
+                        <td th:text="${info.value}"></td>
+                    </tr>
+                    </c:forEach>
+                </table>
+                </p>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer">
+    </div>
+</body>
+</html>
+
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<custom:defaultLayout xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns:custom="urn:jsptagdir:/WEB-INF/tags">
+
+</custom:defaultLayout>
