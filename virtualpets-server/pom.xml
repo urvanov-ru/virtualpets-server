@@ -12,7 +12,6 @@
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <hibernate.version>6.4.1.Final</hibernate.version>
         <!-- <org.springframework.social-version>1.1.6.RELEASE</org.springframework.social-version>-->
         <!-- <org.springframework.social.facebook-version>1.1.1.RELEASE</org.springframework.social.facebook-version>-->
         <!-- <org.springframework.social.vkontakte-version>1.1.2.M3</org.springframework.social.vkontakte-version>-->
@@ -53,6 +52,9 @@
             <version>${project.version}</version>
         </dependency>
         
+
+
+
         <!-- Servlet -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
@@ -137,6 +139,19 @@
     </repositories>
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.hibernate.orm</groupId>
+                            <artifactId>hibernate-jpamodelgen</artifactId>
+                            <version>6.4.1.Final</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+             </plugin>
              <plugin>
                  <groupId>org.springframework.boot</groupId>
                  <artifactId>spring-boot-maven-plugin</artifactId>
@@ -148,17 +163,8 @@
                      </execution>
                  </executions>
              </plugin>
+
         </plugins>
     </build>
-    <dependencyManagement>
-        <dependencies>
-                <dependency>
-                    <groupId>org.junit</groupId>
-                    <artifactId>junit-bom</artifactId>
-                    <version>5.10.0</version>
-                    <type>pom</type>
-                    <scope>import</scope>
-                </dependency>
-            </dependencies>
-    </dependencyManagement>
+    
 </project>

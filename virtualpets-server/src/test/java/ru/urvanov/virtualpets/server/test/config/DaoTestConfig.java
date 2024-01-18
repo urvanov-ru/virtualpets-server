@@ -32,15 +32,15 @@ import org.springframework.jdbc.datasource.embedded.ConnectionProperties;
 import org.springframework.jdbc.datasource.embedded.DataSourceFactory;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 
 /**
  * @author fedya
  * 
  */
 @Configuration
-@ImportResource("file:src/main/webapp/WEB-INF/spring/servlet-tx.xml")
 @ComponentScan(basePackages = {"ru.urvanov.virtualpets.server.dao"})
-@Profile("test")
 public class DaoTestConfig {
 
     
@@ -69,11 +69,12 @@ public class DaoTestConfig {
         result.setDefaultSchema("virtualpets");
         return result;
     }
+    
+ 
 
     @Bean(name = "databaseTester")
-    public DataSourceDatabaseTester dataSourceDatabaseTester() throws Exception {
-        DataSourceDatabaseTester databaseTester = new DataSourceDatabaseTester(
-                dataSource()) {
+    public DataSourceDatabaseTester dataSourceDatabaseTester(DataSource dataSource) throws Exception {
+        DataSourceDatabaseTester databaseTester = new DataSourceDatabaseTester(dataSource) {
             public IDatabaseConnection getConnection() throws Exception {
                 IDatabaseConnection result = super.getConnection();
                 result.getConfig().setProperty(DatabaseConfig.PROPERTY_ESCAPE_PATTERN, "\"?\"");
