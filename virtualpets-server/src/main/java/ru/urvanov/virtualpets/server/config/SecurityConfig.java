@@ -37,6 +37,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChainAll(HttpSecurity http) throws Exception {
         return http
+                .securityMatcher("/styles/**", "/images/**", "/site**")
                 .authorizeHttpRequests((authorize) ->
                     authorize.requestMatchers("/styles/**").permitAll()
                     .requestMatchers("/images/**").permitAll()
@@ -44,18 +45,12 @@ public class SecurityConfig {
                 )
                 .build();
     }
-    
-    @Bean
-    public SecurityFilterChain securityFilterChain0(HttpSecurity http) throws Exception {
-        return http
-                .authorizeHttpRequests((authorize) -> authorize.requestMatchers("/site/**").permitAll())
-                .build();
-    }
+
     
     @Bean
     public SecurityFilterChain securityFilterChain1(HttpSecurity http, AuthenticationManager authenticationManager, CustomAuthenticationProcessingFilter customSecurityFilter) throws Exception {
         http
-            .cors(Customizer.withDefaults())
+            .securityMatcher("/rest/**")
             .csrf(AbstractHttpConfigurer::disable)
             .addFilterAfter(customSecurityFilter, BasicAuthenticationFilter.class)
             .authorizeHttpRequests((authorize) -> 
@@ -64,9 +59,7 @@ public class SecurityConfig {
                 .requestMatchers("/rest/**").hasRole("USER")
             )
             
-            .authenticationManager(authenticationManager)
-            .cors(Customizer.withDefaults())
-            .csrf(AbstractHttpConfigurer::disable);;
+            .authenticationManager(authenticationManager);
 
         return http.build();
     }
