@@ -66,7 +66,7 @@ CREATE TABLE "user" (
                      id serial NOT NULL,
                      login varchar(50) DEFAULT NULL,
                      name varchar(50) NOT NULL,
-                     password varchar(60) NULL,
+                     password varchar(100) NULL,
                      facebook_key varchar(50) DEFAULT NULL,
                      registration_date timestamp with time zone NOT NULL,
                      login_date timestamp with time zone DEFAULT NULL,
@@ -89,7 +89,7 @@ CREATE TABLE "user" (
 create unique index idx_user_login on "user"(login);
 
 INSERT INTO "user"(login, name,password,registration_date,role)
-values('admin', 'admin','$2a$10$3BV8aNFidU1aPLrw8XEWJemivtKmk2MKNbXHXF5XbqO.VPqxl0V8a',now(),4);
+values('admin', 'admin','$2a$10$JT0l8oNHQuohL8SMLHCBludsjTiJNpG.uDHc3QGkP5V.aMMLSEa7G',now(),4);
 
 
 INSERT INTO pet(name,created_date,login_date,user_id,pet_type)

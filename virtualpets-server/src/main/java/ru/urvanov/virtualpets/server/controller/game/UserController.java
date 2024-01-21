@@ -22,7 +22,7 @@ public class UserController {
     private UserService userService;
     
     @RequestMapping(method = RequestMethod.POST, value = "login")
-    public LoginResult login(@RequestAttribute LoginArg loginArg) throws ServiceException, DaoException {
+    public LoginResult login() throws ServiceException, DaoException {
         return userService.login((LoginArg) RequestContextHolder.getRequestAttributes().getAttribute("loginArg", RequestAttributes.SCOPE_REQUEST));
         
     }

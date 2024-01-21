@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -12,6 +13,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -48,55 +50,51 @@ public class SecurityConfig {
 
     
     @Bean
-    public SecurityFilterChain securityFilterChain1(HttpSecurity http, AuthenticationManager authenticationManager, CustomAuthenticationProcessingFilter customSecurityFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain1(HttpSecurity http,
+            AuthenticationManager authenticationManager,
+            //CustomAuthenticationProcessingFilter customSecurityFilter,
+            //UserDetailsService userDetailsService,
+            SecurityContextRepository securityContextRepository
+            //AuthenticationEntryPoint authenticationEntryPoint
+            ) throws Exception {
         http
             .securityMatcher("/rest/**")
             .csrf(AbstractHttpConfigurer::disable)
-            .addFilterAfter(customSecurityFilter, BasicAuthenticationFilter.class)
+            .addFilterAfter(new CustomAuthenticationProcessingFilter(authenticationManager, securityContextRepository), BasicAuthenticationFilter.class)
             .authorizeHttpRequests((authorize) -> 
                 authorize.requestMatchers("/rest/v1/PublicService/**").permitAll()
                 .requestMatchers("/rest/v1/UserService/login").permitAll()
                 .requestMatchers("/rest/**").hasRole("USER")
             )
-            
-            .authenticationManager(authenticationManager);
+            .securityContext((securityContext) -> securityContext
+                    .securityContextRepository(securityContextRepository)
+                )
+            //.exceptionHandling(eH -> eH.authenticationEntryPoint(authenticationEntryPoint))
+            .authenticationManager(authenticationManager)
+            .sessionManagement((session) -> session
+                    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                );
 
         return http.build();
     }
 
     @Bean
     public SecurityContextRepository securityContextRepository(List<SecurityContextRepository> securityContextRepositoryList) {
-        return new DelegatingSecurityContextRepository(securityContextRepositoryList);
+        return new DelegatingSecurityContextRepository(
+                new RequestAttributeSecurityContextRepository(),
+                new HttpSessionSecurityContextRepository());
     }
-    
-    @Bean
-    public SecurityContextRepository requestAttributeSecurityContextRepository() {
-        return new RequestAttributeSecurityContextRepository();
-    }
-    
-    @Bean
-    public SecurityContextRepository httpSessionSecurityContextRepository() {
-        return new HttpSessionSecurityContextRepository();
-    }
-    
-    public List<SecurityContextRepository> securityContextRepositoryList(
-            RequestAttributeSecurityContextRepository requestAttributeSecurityContextRepository,
-            HttpSessionSecurityContextRepository httpSessionSecurityContextRepository) {
-        return List.of(
-                requestAttributeSecurityContextRepository,
-                httpSessionSecurityContextRepository
-                );
-    }
-    
-    @Bean
-    public AuthenticationEntryPoint authenticationEntryPoint() {
-        return new CustomAuthenticationEntryPoint();
-    }
-    
-    @Bean
-    public CustomAuthenticationProcessingFilter customSecurityFilter(AuthenticationManager authenticationManager) {
-        return new CustomAuthenticationProcessingFilter(authenticationManager);
-    }
+
+//    
+//    @Bean
+//    public AuthenticationEntryPoint authenticationEntryPoint() {
+//        return new CustomAuthenticationEntryPoint();
+//    }
+//    
+//    @Bean
+//    public CustomAuthenticationProcessingFilter customSecurityFilter(AuthenticationManager authenticationManager) {
+//        return new CustomAuthenticationProcessingFilter(authenticationManager);
+//    }
     
     @Bean
     public AuthenticationProvider authenticationProvider(UserDetailsService userService, BCryptPasswordEncoder bcryptEncoder) {

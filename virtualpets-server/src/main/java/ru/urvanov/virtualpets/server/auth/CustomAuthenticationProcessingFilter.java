@@ -10,6 +10,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.session.ChangeSessionIdAuthenticationStrategy;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +23,7 @@ import ru.urvanov.virtualpets.shared.domain.LoginArg;
 
 public class CustomAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
-    public CustomAuthenticationProcessingFilter(AuthenticationManager authenticationManager) {
+    public CustomAuthenticationProcessingFilter(AuthenticationManager authenticationManager, SecurityContextRepository securityContextRepository) {
         super(new AntPathRequestMatcher("/rest/v1/UserService/login", "POST"), authenticationManager);
         this.setAuthenticationSuccessHandler(new AuthenticationSuccessHandler() {
 
@@ -39,6 +40,7 @@ public class CustomAuthenticationProcessingFilter extends AbstractAuthentication
             
         });
         this.setSessionAuthenticationStrategy(new ChangeSessionIdAuthenticationStrategy());
+        this.setSecurityContextRepository(securityContextRepository);
     }
 
     @Override
