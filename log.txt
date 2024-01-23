@@ -1,0 +1,107 @@
+Warning: JAVA_HOME environment variable is not set.
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------< ru.urvanov.virtualpets:virtualpets-server >--------------
+[INFO] Building ru.urvanov.virtualpets.server 3.2.2
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.2:build-image (default-cli) > package @ virtualpets-server >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ virtualpets-server ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 29 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ virtualpets-server ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 214 source files with javac [debug release 17] to target/classes
+[INFO] Hibernate/JPA static Metamodel Generator 6.4.1.Final
+[WARNING] Implicitly compiled files were not subject to annotation processing.
+  Use -proc:none to disable annotation processing or -implicit to specify a policy for implicit compilation.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ virtualpets-server ---
+[INFO] Copying 9 resources from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ virtualpets-server ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] Compiling 14 source files with javac [debug release 17] to target/test-classes
+[INFO] Hibernate/JPA static Metamodel Generator 6.4.1.Final
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ virtualpets-server ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.3.0:jar (default-jar) @ virtualpets-server ---
+[INFO] Building jar: /home/fedor/MyData/Java/PrettyPets/git/virtualpets/target/virtualpets-server-3.2.2.jar
+[INFO] 
+[INFO] <<< spring-boot:3.2.2:build-image (default-cli) < package @ virtualpets-server <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.2.2:build-image (default-cli) @ virtualpets-server ---
+[WARNING]  Parameter 'imageName' (user property 'spring-boot.build-image.imageName') is read-only, must not be used in configuration
+[INFO] Building image 'docker.io/urvanovru/virtualpets-server:latest'
+[INFO] 
+[INFO]  > Pulling builder image 'docker.io/paketobuildpacks/builder-jammy-base:latest' 100%
+[INFO]  > Pulled builder image 'paketobuildpacks/builder-jammy-base@sha256:92811b61280130099527b40c7650c871187a7e1cebb21744d93e480fc34cbcb0'
+[INFO]  > Pulling run image 'docker.io/paketobuildpacks/run-jammy-base:latest' 100%
+[INFO]  > Pulled run image 'paketobuildpacks/run-jammy-base@sha256:ac21741202c46c4de193714557e692ce29fa5a2f70047d4799deb7e21ac99d89'
+[INFO]  > Executing lifecycle version v0.18.4
+[INFO]  > Using build cache volume 'pack-cache-63f2125028a1.build'
+[INFO] 
+[INFO]  > Running creator
+[INFO]     [creator]     ===> ANALYZING
+[INFO]     [creator]     Restoring data for SBOM from previous image
+[INFO]     [creator]     ===> DETECTING
+[INFO]     [creator]     6 of 26 buildpacks participating
+[INFO]     [creator]     paketo-buildpacks/ca-certificates   3.6.7
+[INFO]     [creator]     paketo-buildpacks/bellsoft-liberica 10.4.4
+[INFO]     [creator]     paketo-buildpacks/syft              1.42.0
+[INFO]     [creator]     paketo-buildpacks/executable-jar    6.8.3
+[INFO]     [creator]     paketo-buildpacks/dist-zip          5.6.8
+[INFO]     [creator]     paketo-buildpacks/spring-boot       5.27.8
+[INFO]     [creator]     ===> RESTORING
+[INFO]     [creator]     Restoring metadata for "paketo-buildpacks/ca-certificates:helper" from app image
+[INFO]     [creator]     Restoring metadata for "paketo-buildpacks/bellsoft-liberica:helper" from app image
+[INFO]     [creator]     Restoring metadata for "paketo-buildpacks/bellsoft-liberica:java-security-properties" from app image
+[INFO]     [creator]     Restoring metadata for "paketo-buildpacks/bellsoft-liberica:jre" from app image
+[INFO]     [creator]     Restoring metadata for "paketo-buildpacks/syft:syft" from cache
+[INFO]     [creator]     Restoring metadata for "paketo-buildpacks/spring-boot:helper" from app image
+[INFO]     [creator]     Restoring metadata for "paketo-buildpacks/spring-boot:spring-cloud-bindings" from app image
+[INFO]     [creator]     Restoring metadata for "paketo-buildpacks/spring-boot:web-application-type" from app image
+[INFO]     [creator]     Restoring data for "paketo-buildpacks/syft:syft" from cache
+[INFO]     [creator]     Restoring data for SBOM from cache
+[INFO]     [creator]     ===> BUILDING
+[INFO]     [creator]     
+[INFO]     [creator]     Paketo Buildpack for CA Certificates 3.6.7
+[INFO]     [creator]       https://github.com/paketo-buildpacks/ca-certificates
+[INFO]     [creator]       Launch Helper: Reusing cached layer
+[INFO]     [creator]     
+[INFO]     [creator]     Paketo Buildpack for BellSoft Liberica 10.4.4
+[INFO]     [creator]       https://github.com/paketo-buildpacks/bellsoft-liberica
+[INFO]     [creator]       Build Configuration:
+[INFO]     [creator]         $BP_JVM_JLINK_ARGS           --no-man-pages --no-header-files --strip-debug --compress=1  configure custom link arguments (--output must be omitted)
+[INFO]     [creator]         $BP_JVM_JLINK_ENABLED        false                                                        enables running jlink tool to generate custom JRE
+[INFO]     [creator]         $BP_JVM_TYPE                 JRE                                                          the JVM type - JDK or JRE
+[INFO]     [creator]         $BP_JVM_VERSION              17                                                           the Java version
+[INFO]     [creator]       Launch Configuration:
+[INFO]     [creator]         $BPL_DEBUG_ENABLED           false                                                        enables Java remote debugging support
+[INFO]     [creator]         $BPL_DEBUG_PORT              8000                                                         configure the remote debugging port
+[INFO]     [creator]         $BPL_DEBUG_SUSPEND           false                                                        configure whether to suspend execution until a debugger has attached
+[INFO]     [creator]         $BPL_HEAP_DUMP_PATH                                                                       write heap dumps on error to this path
+[INFO]     [creator]         $BPL_JAVA_NMT_ENABLED        true                                                         enables Java Native Memory Tracking (NMT)
+[INFO]     [creator]         $BPL_JAVA_NMT_LEVEL          summary                                                      configure level of NMT, summary or detail
+[INFO]     [creator]         $BPL_JFR_ARGS                                                                             configure custom Java Flight Recording (JFR) arguments
+[INFO]     [creator]         $BPL_JFR_ENABLED             false                                                        enables Java Flight Recording (JFR)
+[INFO]     [creator]         $BPL_JMX_ENABLED             false                                                        enables Java Management Extensions (JMX)
+[INFO]     [creator]         $BPL_JMX_PORT                5000                                                         configure the JMX port
+[INFO]     [creator]         $BPL_JVM_HEAD_ROOM           0                                                            the headroom in memory calculation
+[INFO]     [creator]         $BPL_JVM_LOADED_CLASS_COUNT  35% of classes                                               the number of loaded classes in memory calculation
+[INFO]     [creator]         $BPL_JVM_THREAD_COUNT        250                                                          the number of threads in memory calculation
+[INFO]     [creator]         $JAVA_TOOL_OPTIONS                                                                        the JVM launch flags
+[INFO]     [creator]         Using Java version 17 extracted from MANIFEST.MF
+[INFO]     [creator]       BellSoft Liberica JRE 17.0.9: Reusing cached layer
+[INFO]     [creator]       Launch Helper: Reusing cached layer
+[INFO]     [creator]       Java Security Properties: Reusing cached layer
+[INFO]     [creator]     
+[INFO]     [creator]     Paketo Buildpack for Syft 1.42.0
+[INFO]     [creator]       https://github.com/paketo-buildpacks/syft
+[INFO]     [creator]         Downloading from https://github.com/anchore/syft/releases/download/v0.99.0/syft_0.99.0_linux_amd64.tar.gz

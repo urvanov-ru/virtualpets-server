@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html th:lang="${#locale}">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/wood.css" type="text/css"
+    media="screen" />
+</head>
+<body>
+    <div th:replace="fragments/header :: header">
+    </div>
+    <div th:replace="fragments/menu :: menu">
+    </div>
+    <div class="body">
+        <div id="main">
+
+            <H1 th:text="#{information}"></H1>
+            <p>
+                <a th:href="@{/site/information/gameHelp}" th:text="#{game_help}"></a>
+            </p>
+            <p>
+                <a th:href="@{/site/information/serverInfo}" th:text="#{server_info}"></a>
+            </p>
+            <p>
+                <a th:href="@{/site/information/statistics}" th:text="#{statistics}"></a>
+            </p>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer">
+    </div>
+</body>
+</html>

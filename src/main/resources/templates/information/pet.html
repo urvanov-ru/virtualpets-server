@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html th:lang="${#locale}">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/wood.css" type="text/css"
+    media="screen" />
+</head>
+<body>
+    <div th:replace="fragments/header :: header">
+    </div>
+    <div th:replace="fragments/menu :: menu">
+    </div>
+    <div class="body">
+        <div id="main">
+        <H1 th:text="#{pet_info}"></H1>
+        <p th:text="#{pet_name} + ${': ' + pet.name}"></p>
+        <p th:text="#{pet_level} + ${': ' + pet.level}"></p>
+        <p th:text="#{pet_experience} + ${': ' + pet.experience}"></p>
+        <H1 th:text="#{achievements}"></H1>
+        <div  th:each="info : ${pet.achievements}">
+            <div class="achievementUnlocked" th:if="${info.unlocked}">
+                <p th:text="#{ru.urvanov.virtualpets.client.localization.achievement.__${info.code}__}">
+                </p>
+                <p th:text="#{ru.urvanov.virtualpets.client.localization.achievement.__${info.code}___DESCRIPTION}">
+                </p>
+            </div>
+            <div class="achievementLocked" th:if="${!info.unlocked}">
+                <p th:text="#{ru.urvanov.virtualpets.client.localization.achievement.__${info.code}__}">
+                </p>
+                <p th:text="#{ru.urvanov.virtualpets.client.localization.achievement.__${info.code}___DESCRIPTION}">
+                </p>
+            </div>
+            <p>
+            </p>
+        </div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer">
+    </div>
+</body>
+</html>
+
