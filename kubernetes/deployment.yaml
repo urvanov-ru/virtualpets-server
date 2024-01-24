@@ -18,7 +18,23 @@ spec:
         app: virtualpets-server
     spec:
       containers:
-      - image: urvanovru/virtualpets-server
+      - env:
+        - name: SPRING_DATASOURCE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: virtualpets-config
+              key: SPRING_DATASOURCE_URL
+        - name: DATASOURCE_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: virtualpets-config
+              key: SPRING_DATASOURCE_USERNAME
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: virtualpets-config
+              key: SPRING_DATASOURCE_PASSWORD
+        image: urvanovru/virtualpets-server
         name: virtualpets-server
         imagePullPolicy: Never
         resources: {}

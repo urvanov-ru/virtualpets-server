@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: virtualpets-config
+data:
+  SPRING_DATASOURCE_URL: jdbc:postgresql://pg-minikube-postgresql.urvanovru.svc.cluster.local:5432/postgres
+  SPRING_DATASOURCE_USERNAME: postgres
+  SPRING_DATASOURCE_PASSWORD: postgres
