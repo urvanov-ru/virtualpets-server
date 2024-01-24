@@ -5,9 +5,9 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: "virtualpets"
-      POSTGRES_USER: "root"
-      POSTGRES_PASSWORD: "root"
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
       PGDATA: "data/pgdata"
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
     volumes:
