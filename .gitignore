@@ -9,5 +9,5 @@ dependency-reduced-pom.xml
 /.classpath
 /.settings
 /.project
-target
 /target
+
