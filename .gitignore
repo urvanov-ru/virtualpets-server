@@ -6,3 +6,8 @@ dependency-reduced-pom.xml
 .factorypath
 *.log.*
 *.idea
+/target
+/.classpath
+/Users
+/.springBeans
+/.factoryPath
