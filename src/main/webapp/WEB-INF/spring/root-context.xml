@@ -98,9 +98,10 @@
         <property name="subject" value="Recover password" />
     </bean>
 
-    <context:component-scan base-package="ru.urvanov.virtualpets.server.dao" />
-    <context:component-scan base-package="ru.urvanov.virtualpets.server.service" />
-    <context:component-scan base-package="ru.urvanov.virtualpets.server.remoting" />
+    <context:component-scan
+            base-package="ru.urvanov.virtualpets.server.dao,
+                          ru.urvanov.virtualpets.server.service
+            " />
 
     <task:scheduler id="sheduler" pool-size="1" />
 
