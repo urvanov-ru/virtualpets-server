@@ -8,14 +8,10 @@ import org.springframework.mail.SimpleMailMessage;
 @Configuration
 public class MailConfig {
     
-    @Value("${mail.from}")
-    private String mailFrom;
-    
-    @Value("${mail.subject}")
-    private String mailSubject;
-    
     @Bean
-    public SimpleMailMessage templateMessage() {
+    public SimpleMailMessage templateMessage(
+            @Value("${mail.from}") String mailFrom,
+            @Value("${mail.subject}") String mailSubject) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom(null);
         simpleMailMessage.setSubject(mailSubject);
